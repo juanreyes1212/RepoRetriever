@@ -96,75 +96,83 @@ export function TokenInput() {
   }
 
   return (
-    <Card className="clay-card">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Github className="h-5 w-5" />
-          Train Your RepoRetriever
+    <Card className="clay-card border-2">
+      <CardHeader className="text-center pb-4">
+        <CardTitle className="text-3xl font-bold flex items-center justify-center gap-3">
+          <Github className="h-8 w-8" />
+          Automate Your GitHub Profile
         </CardTitle>
-        <CardDescription>
-          Sign in with GitHub using secure OAuth. No manual tokens needed!
+        <CardDescription className="text-base mt-2">
+          One-click achievements, auto-cleanup, and instant contributions
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
-          <div className="rounded-lg border bg-muted/50 p-4 space-y-3">
-            <h3 className="font-semibold text-base">What RepoRetriever Does</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Automate your GitHub workflow with intelligence and precision. RepoRetriever helps you unlock achievements,
-              learn the GitHub API, test automation workflows, and practice contribution patterns in a safe, controlled environment.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-              <div className="space-y-1">
-                <p className="font-medium">✨ Achievement Automation</p>
-                <p className="text-xs text-muted-foreground">Unlock GitHub profile achievements through automated workflows</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="text-center p-4 rounded-lg bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 border border-blue-200 dark:border-blue-800">
+              <div className="text-4xl mb-2">🦈</div>
+              <h3 className="font-semibold mb-1">Pull Shark</h3>
+              <p className="text-xs text-muted-foreground">Auto-merge PRs</p>
+            </div>
+            <div className="text-center p-4 rounded-lg bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950 dark:to-green-900 border border-green-200 dark:border-green-800">
+              <div className="text-4xl mb-2">⚡</div>
+              <h3 className="font-semibold mb-1">Quickdraw</h3>
+              <p className="text-xs text-muted-foreground">Fast issue closing</p>
+            </div>
+            <div className="text-center p-4 rounded-lg bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 border border-purple-200 dark:border-purple-800">
+              <div className="text-4xl mb-2">🎯</div>
+              <h3 className="font-semibold mb-1">YOLO</h3>
+              <p className="text-xs text-muted-foreground">Direct commits</p>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30 border border-muted">
+              <div className="text-2xl flex-shrink-0">🌟</div>
+              <div>
+                <h4 className="font-semibold text-sm mb-1">Add to Awesome Lists</h4>
+                <p className="text-xs text-muted-foreground">Auto-contribute to curated lists and showcase repos</p>
               </div>
-              <div className="space-y-1">
-                <p className="font-medium">🔬 Workflow Testing</p>
-                <p className="text-xs text-muted-foreground">Practice GitHub automation patterns and test API interactions</p>
+            </div>
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30 border border-muted">
+              <div className="text-2xl flex-shrink-0">🚀</div>
+              <div>
+                <h4 className="font-semibold text-sm mb-1">Instant Contributions</h4>
+                <p className="text-xs text-muted-foreground">Build your contribution graph automatically</p>
               </div>
-              <div className="space-y-1">
-                <p className="font-medium">📊 API Management</p>
-                <p className="text-xs text-muted-foreground">Monitor rate limits with intelligent request scheduling</p>
-              </div>
-              <div className="space-y-1">
-                <p className="font-medium">🧹 Auto Cleanup</p>
-                <p className="text-xs text-muted-foreground">Automatic repository deletion keeps your account organized</p>
+            </div>
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/30 border border-muted">
+              <div className="text-2xl flex-shrink-0">🧹</div>
+              <div>
+                <h4 className="font-semibold text-sm mb-1">Smart Cleanup</h4>
+                <p className="text-xs text-muted-foreground">Test repos auto-delete after achievements unlock</p>
               </div>
             </div>
           </div>
 
           <Button
             onClick={handleSignIn}
-            className="w-full clay-button"
+            className="w-full clay-button text-lg py-6"
             disabled={isSigningIn}
             size="lg"
           >
-            <Github className="mr-2 h-5 w-5" />
-            {isSigningIn ? 'Connecting...' : 'Sign in with GitHub'}
+            <Github className="mr-2 h-6 w-6" />
+            {isSigningIn ? 'Connecting...' : 'Get Started Free'}
           </Button>
 
-          <Alert className="bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800">
-            <Shield className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-            <AlertDescription className="text-blue-800 dark:text-blue-200 text-sm">
-              <strong>Enhanced Security:</strong>
-              <ul className="list-disc list-inside mt-2 space-y-1">
-                <li>OAuth authentication (no token copying)</li>
-                <li>Server-side token storage only</li>
-                <li>Encrypted HttpOnly cookies</li>
-                <li>Never exposed to client-side code</li>
-              </ul>
-            </AlertDescription>
-          </Alert>
-
-          <div className="text-xs text-muted-foreground space-y-1">
-            <p className="font-medium">Requested permissions:</p>
-            <ul className="list-disc list-inside pl-2">
-              <li>Full repository access (repo)</li>
-              <li>Read user profile (read:user)</li>
-              <li>Read organizations (read:org)</li>
-              <li>Read email (user:email)</li>
-            </ul>
+          <div className="flex items-center justify-center gap-6 text-xs text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <Shield className="h-3 w-3" />
+              <span>OAuth Secure</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span>⚡</span>
+              <span>Setup in 30s</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span>🔒</span>
+              <span>Private by default</span>
+            </div>
           </div>
         </div>
       </CardContent>
