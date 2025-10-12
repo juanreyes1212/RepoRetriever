@@ -107,7 +107,33 @@ export function TokenInput() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <div className="space-y-6">
+          <div className="rounded-lg border bg-muted/50 p-4 space-y-3">
+            <h3 className="font-semibold text-base">What RepoRetriever Does</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Automate your GitHub workflow with intelligence and precision. RepoRetriever helps you unlock achievements,
+              learn the GitHub API, test automation workflows, and practice contribution patterns in a safe, controlled environment.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+              <div className="space-y-1">
+                <p className="font-medium">✨ Achievement Automation</p>
+                <p className="text-xs text-muted-foreground">Unlock GitHub profile achievements through automated workflows</p>
+              </div>
+              <div className="space-y-1">
+                <p className="font-medium">🔬 Workflow Testing</p>
+                <p className="text-xs text-muted-foreground">Practice GitHub automation patterns and test API interactions</p>
+              </div>
+              <div className="space-y-1">
+                <p className="font-medium">📊 API Management</p>
+                <p className="text-xs text-muted-foreground">Monitor rate limits with intelligent request scheduling</p>
+              </div>
+              <div className="space-y-1">
+                <p className="font-medium">🧹 Auto Cleanup</p>
+                <p className="text-xs text-muted-foreground">Automatic repository deletion keeps your account organized</p>
+              </div>
+            </div>
+          </div>
+
           <Button
             onClick={handleSignIn}
             className="w-full clay-button"
