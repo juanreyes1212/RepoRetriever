@@ -1,7 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { Github, Shield, Zap, Award, Dog } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { Shield, Dog } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { TokenInput } from '@/components/token-input';
 import { AchievementCard, type AchievementStatus } from '@/components/achievement-card';
@@ -11,8 +12,6 @@ import { AchievementHistory } from '@/components/achievement-history';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { storageUtils, type AchievementRecord, type LogEntry } from '@/lib/storage';
-import { GitHubAPI, type GitHubUser } from '@/lib/github-api';
-import { AchievementAutomator } from '@/lib/achievement-automator';
 import { toast } from 'sonner';
 
 type AchievementType = 'pull_shark' | 'quickdraw' | 'yolo';
@@ -23,10 +22,7 @@ interface AchievementState {
 }
 
 export default function Home() {
-  const [isConnected, setIsConnected] = React.useState(false);
-  const [isValidating, setIsValidating] = React.useState(false);
-  const [user, setUser] = React.useState<GitHubUser | null>(null);
-  const [error, setError] = React.useState<string>('');
+  const { data: session, status } = useSession();
   const [autoDeleteRepos, setAutoDeleteRepos] = React.useState(false);
   const [logs, setLogs] = React.useState<LogEntry[]>([]);
   const [history, setHistory] = React.useState<AchievementRecord[]>([]);
@@ -37,78 +33,21 @@ export default function Home() {
   });
 
   React.useEffect(() => {
-    const token = storageUtils.getToken();
-    if (token) {
-      validateAndConnect(token);
-    }
-
     const prefs = storageUtils.getPreferences();
     setAutoDeleteRepos(prefs.autoDeleteRepos);
-
     setLogs(storageUtils.getLogs());
     setHistory(storageUtils.getAchievementHistory());
   }, []);
 
+  React.useEffect(() => {
+    if (status === 'authenticated' && session?.user) {
+      addLog('success', `Connected as ${session.user.name || session.user.email}`);
+    }
+  }, [status, session]);
+
   const addLog = (level: 'info' | 'success' | 'warning' | 'error', message: string, details?: any) => {
     storageUtils.addLog({ level, message, details });
     setLogs(storageUtils.getLogs());
-  };
-
-  const validateAndConnect = async (token: string) => {
-    setIsValidating(true);
-    setError('');
-
-    try {
-      const api = new GitHubAPI(token);
-      const userData = await api.validateToken();
-
-      const scopes = await api.checkTokenScopes();
-      const hasRepoScope = scopes.some(s => s === 'repo' || s.includes('repo'));
-      const hasDeleteScope = scopes.some(s => s === 'delete_repo');
-
-      if (!hasRepoScope) {
-        throw new Error('Token missing required "repo" scope');
-      }
-
-      if (!hasDeleteScope) {
-        addLog('warning', 'Token missing "delete_repo" scope - repository cleanup will not be available');
-        toast.warning('Missing delete_repo scope', {
-          description: 'Repository cleanup will not be available',
-        });
-      }
-
-      storageUtils.setToken(token);
-      setUser(userData);
-      setIsConnected(true);
-      addLog('success', `Connected as ${userData.login}`);
-      toast.success('RepoRetriever connected!', {
-        description: `Ready to fetch achievements for ${userData.login}!`,
-      });
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to validate token';
-      setError(errorMessage);
-      addLog('error', `Connection failed: ${errorMessage}`);
-      toast.error('Connection failed', {
-        description: errorMessage,
-      });
-    } finally {
-      setIsValidating(false);
-    }
-  };
-
-  const handleDisconnect = () => {
-    storageUtils.clearToken();
-    setIsConnected(false);
-    setUser(null);
-    setAchievements({
-      pull_shark: { status: 'idle', progress: 0 },
-      quickdraw: { status: 'idle', progress: 0 },
-      yolo: { status: 'idle', progress: 0 },
-    });
-    addLog('info', 'Disconnected from GitHub');
-    toast.info('RepoRetriever disconnected', {
-      description: 'Sitting down and waiting for next command',
-    });
   };
 
   const handleAutoDeleteChange = (value: boolean) => {
@@ -122,15 +61,18 @@ export default function Home() {
   };
 
   const handleUnlockAchievement = async (type: AchievementType) => {
-    const token = storageUtils.getToken();
-    if (!token || !user) return;
+    if (status !== 'authenticated') {
+      toast.error('Not authenticated', {
+        description: 'Please sign in with GitHub first',
+      });
+      return;
+    }
 
     setAchievements(prev => ({
       ...prev,
       [type]: { status: 'in_progress', progress: 0 },
     }));
 
-    const automator = new AchievementAutomator(token, user.login, addLog);
     const startTime = Date.now();
 
     const progressInterval = setInterval(() => {
@@ -145,23 +87,27 @@ export default function Home() {
     }, 1000);
 
     try {
-      let result;
+      const endpoint = `/api/achievements/${type.replace('_', '-')}`;
 
-      switch (type) {
-        case 'yolo':
-          result = await automator.automateYOLO(autoDeleteRepos);
-          break;
-        case 'quickdraw':
-          result = await automator.automateQuickdraw(autoDeleteRepos);
-          break;
-        case 'pull_shark':
-          result = await automator.automatePullShark(autoDeleteRepos);
-          break;
-      }
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          repoName: `repo-${type}-${Date.now()}`,
+          commitMessage: 'Update repository',
+          prTitle: 'Automated update',
+        }),
+      });
+
+      const result = await response.json();
 
       clearInterval(progressInterval);
 
-      if (result.success) {
+      if (response.ok && result.success) {
+        const durationSeconds = Math.floor((Date.now() - startTime) / 1000);
+
         setAchievements(prev => ({
           ...prev,
           [type]: { status: 'success', progress: 100 },
@@ -171,18 +117,19 @@ export default function Home() {
           id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           achievementType: type,
           status: 'success',
-          repositoryUrl: result.repositoryUrl,
-          issueUrl: result.issueUrl,
-          pullRequestUrls: result.pullRequestUrls,
-          durationSeconds: result.durationSeconds,
+          repositoryUrl: result.repository,
+          pullRequestUrls: result.pullRequest ? [result.pullRequest] : undefined,
+          durationSeconds,
           createdAt: new Date().toISOString(),
         };
 
         storageUtils.addAchievementRecord(record);
         setHistory(storageUtils.getAchievementHistory());
 
+        addLog('success', `${type} achievement fetched successfully`, result);
+
         toast.success('Achievement fetched!', {
-          description: `RepoRetriever brought it back in ${result.durationSeconds}s`,
+          description: `RepoRetriever brought it back in ${durationSeconds}s`,
         });
 
         setTimeout(() => {
@@ -192,25 +139,31 @@ export default function Home() {
           }));
         }, 3000);
       } else {
+        const durationSeconds = Math.floor((Date.now() - startTime) / 1000);
+
         setAchievements(prev => ({
           ...prev,
           [type]: { status: 'error', progress: 0 },
         }));
 
+        const errorMessage = result.message || result.error || 'Unknown error';
+
         const record: AchievementRecord = {
           id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           achievementType: type,
           status: 'failed',
-          errorMessage: result.error,
-          durationSeconds: result.durationSeconds,
+          errorMessage,
+          durationSeconds,
           createdAt: new Date().toISOString(),
         };
 
         storageUtils.addAchievementRecord(record);
         setHistory(storageUtils.getAchievementHistory());
 
+        addLog('error', `Achievement fetch failed: ${errorMessage}`);
+
         toast.error('Fetch failed', {
-          description: result.error,
+          description: errorMessage,
         });
       }
     } catch (err) {
@@ -261,6 +214,8 @@ export default function Home() {
     });
   };
 
+  const isConnected = status === 'authenticated';
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b clay-card">
@@ -283,19 +238,11 @@ export default function Home() {
           <Alert className="clay-card border-0">
             <Shield className="h-4 w-4" />
             <AlertDescription>
-              <strong>Good Boy Guarantee:</strong> Your GitHub token stays in this browser tab only. RepoRetriever fetches achievements directly from GitHub's API without any intermediary servers.
+              <strong>Enhanced Security:</strong> Your GitHub token is securely stored server-side with encrypted HttpOnly cookies. RepoRetriever uses OAuth authentication and never exposes your credentials to client-side code.
             </AlertDescription>
           </Alert>
 
-          <TokenInput
-            onConnect={validateAndConnect}
-            onDisconnect={handleDisconnect}
-            isConnected={isConnected}
-            username={user?.login}
-            avatarUrl={user?.avatar_url}
-            isValidating={isValidating}
-            error={error}
-          />
+          <TokenInput />
 
           {isConnected && (
             <>
@@ -380,12 +327,12 @@ export default function Home() {
               </a>
               <Separator orientation="vertical" className="h-4" />
               <a
-                href="https://github.com/settings/tokens"
+                href="https://github.com/settings/applications"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary transition-colors"
               >
-                Manage Tokens
+                Manage OAuth Apps
               </a>
             </div>
           </div>
