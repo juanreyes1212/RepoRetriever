@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 30 40% 98%;
+    --foreground: 20 10% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 10% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 10% 10%;
+    --primary: 25 95% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 45 90% 60%;
+    --secondary-foreground: 20 10% 10%;
+    --muted: 30 30% 95%;
+    --muted-foreground: 25 10% 45%;
+    --accent: 15 85% 65%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 25 95% 53%;
+    --success: 160 85% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --chart-1: 25 95% 53%;
+    --chart-2: 15 85% 65%;
+    --chart-3: 45 90% 60%;
+    --chart-4: 5 75% 55%;
+    --chart-5: 35 88% 58%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 195 25% 8%;
+    --foreground: 180 5% 95%;
+    --card: 195 20% 12%;
+    --card-foreground: 180 5% 95%;
+    --popover: 195 25% 10%;
+    --popover-foreground: 180 5% 95%;
+    --primary: 175 70% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 185 35% 25%;
+    --secondary-foreground: 180 5% 95%;
+    --muted: 195 20% 20%;
+    --muted-foreground: 180 5% 65%;
+    --accent: 170 60% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 195 20% 20%;
+    --input: 195 20% 20%;
+    --ring: 175 70% 45%;
+    --success: 160 85% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --chart-1: 175 70% 45%;
+    --chart-2: 170 60% 50%;
+    --chart-3: 185 50% 55%;
+    --chart-4: 165 55% 40%;
+    --chart-5: 190 45% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .clay-card {
+    box-shadow:
+      8px 8px 16px rgba(0, 0, 0, 0.1),
+      -8px -8px 16px rgba(255, 255, 255, 0.9),
+      inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+      inset -2px -2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .dark .clay-card {
+    box-shadow:
+      8px 8px 20px rgba(0, 0, 0, 0.4),
+      -8px -8px 20px rgba(255, 255, 255, 0.05),
+      inset 2px 2px 4px rgba(255, 255, 255, 0.05),
+      inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .clay-button {
+    box-shadow:
+      4px 4px 8px rgba(0, 0, 0, 0.1),
+      -4px -4px 8px rgba(255, 255, 255, 0.9),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.4),
+      inset -1px -1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+  }
+
+  .clay-button:hover {
+    box-shadow:
+      6px 6px 12px rgba(0, 0, 0, 0.15),
+      -6px -6px 12px rgba(255, 255, 255, 0.95),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.5),
+      inset -1px -1px 2px rgba(0, 0, 0, 0.08);
+  }
+
+  .clay-button:active {
+    box-shadow:
+      inset 4px 4px 8px rgba(0, 0, 0, 0.15),
+      inset -4px -4px 8px rgba(255, 255, 255, 0.5);
+  }
+
+  .dark .clay-button {
+    box-shadow:
+      4px 4px 10px rgba(0, 0, 0, 0.4),
+      -4px -4px 10px rgba(255, 255, 255, 0.05),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.08),
+      inset -1px -1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .dark .clay-button:hover {
+    box-shadow:
+      6px 6px 14px rgba(0, 0, 0, 0.5),
+      -6px -6px 14px rgba(255, 255, 255, 0.08),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.1),
+      inset -1px -1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  .dark .clay-button:active {
+    box-shadow:
+      inset 4px 4px 10px rgba(0, 0, 0, 0.5),
+      inset -4px -4px 10px rgba(255, 255, 255, 0.05);
+  }
+
+  .clay-input {
+    box-shadow:
+      inset 3px 3px 6px rgba(0, 0, 0, 0.1),
+      inset -3px -3px 6px rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .dark .clay-input {
+    box-shadow:
+      inset 3px 3px 8px rgba(0, 0, 0, 0.4),
+      inset -3px -3px 8px rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .clay-badge {
+    box-shadow:
+      3px 3px 6px rgba(0, 0, 0, 0.08),
+      -3px -3px 6px rgba(255, 255, 255, 0.8),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.3),
+      inset -1px -1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .dark .clay-badge {
+    box-shadow:
+      3px 3px 8px rgba(0, 0, 0, 0.3),
+      -3px -3px 8px rgba(255, 255, 255, 0.04),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+      inset -1px -1px 2px rgba(0, 0, 0, 0.2);
+  }
+}
