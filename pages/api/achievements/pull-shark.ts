@@ -14,7 +14,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       return res.status(401).json({ error: "No GitHub token found" });
     }
 
-    const { repoName, commitMessage, prTitle } = req.body;
+    const { repoName, commitMessage, prTitle, autoDelete } = req.body;
 
     if (!repoName) {
       return res.status(400).json({ error: "Repository name is required" });
@@ -68,11 +68,24 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       merge_method: "merge",
     });
 
+    let deletedRepo = false;
+    if (autoDelete) {
+      try {
+        await client.delete(`/repos/${username}/${repoName}`);
+        deletedRepo = true;
+      } catch (deleteError) {
+        console.error("Failed to delete repository:", deleteError);
+      }
+    }
+
     return res.status(200).json({
       success: true,
       repository: repo.html_url,
       pullRequest: pr.html_url,
-      message: "Pull request created and merged successfully",
+      deleted: deletedRepo,
+      message: deletedRepo
+        ? "Pull request created, merged, and repository deleted successfully"
+        : "Pull request created and merged successfully",
     });
   } catch (error) {
     console.error("Pull Shark Automation Error:", error);

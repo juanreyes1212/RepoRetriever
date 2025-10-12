@@ -98,6 +98,7 @@ export default function Home() {
           repoName: `repo-${type}-${Date.now()}`,
           commitMessage: 'Update repository',
           prTitle: 'Automated update',
+          autoDelete: autoDeleteRepos,
         }),
       });
 

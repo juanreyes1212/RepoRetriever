@@ -1,162 +1,222 @@
 # 🐕 RepoRetriever
 
-Your loyal GitHub achievement companion! RepoRetriever automates GitHub achievements with enthusiasm, reliability, and enterprise-grade security.
+Automate your GitHub workflow with intelligence and precision. RepoRetriever helps you unlock achievements, learn the GitHub API, test automation workflows, and practice contribution patterns in a safe, controlled environment.
 
-## ⚡ Built with Bun for Maximum Performance
+## What RepoRetriever Does
 
-RepoRetriever leverages **Bun** for blazing-fast performance:
+**GitHub Achievement Automation**
+Unlock GitHub profile achievements through automated workflows. Understand how achievements work by seeing the exact API calls and patterns required.
 
-- 🚀 **3-4x faster** package installation vs npm
-- ⚡ **Faster development builds** with native bundling
-- 💾 **50% less memory usage** during development
-- 🔥 **Lightning-fast hot reload** for instant feedback
+**Workflow Testing & Learning**
+Practice GitHub automation patterns, test API interactions, and learn repository management without affecting production projects.
 
-### Performance Comparison
+**Contribution Pattern Practice**
+Generate realistic contribution patterns for testing CI/CD pipelines, exploring Git workflows, and understanding collaborative development.
 
-| Task | npm | Bun | Speed Improvement |
-|------|-----|-----|-------------------|
-| Install dependencies | ~45s | ~12s | **3.75x faster** |
-| Production build | ~18s | ~14s | **1.3x faster** |
-| Dev server start | ~3.5s | ~1.2s | **2.9x faster** |
+**API Rate Limit Management**
+Monitor and optimize GitHub API usage with built-in rate limit tracking, exponential backoff, and intelligent request scheduling.
 
-## 🔒 Security First
+**Clean Development Environment**
+Automatic repository and pull request cleanup keeps your GitHub account organized. All test repositories are clearly marked and can be batch-deleted.
 
-RepoRetriever implements industry-standard security practices:
+## Core Features
 
-✅ **NextAuth.js OAuth** - No manual token copying
-✅ **Server-side token storage** - Encrypted HttpOnly cookies
-✅ **Zero client exposure** - Tokens never touch JavaScript
-✅ **CSRF protection** - Built-in security measures
-✅ **Rate limit handling** - Respects GitHub API limits
+### 🎯 Achievement Automation
 
-## 🎯 Supported Achievements
+- **Pull Shark** - Automated PR creation and merging workflows
+- **Quickdraw** - Issue creation and rapid resolution patterns
+- **YOLO** - Direct commit workflows and main branch strategies
+- **Pair Extraordinaire** - Co-authored commit automation
+- **Galaxy Brain** - Discussion interaction workflows
+- **Heart On Your Sleeve** - Reaction and engagement patterns
+- **Open Sourcerer** - External contribution simulation
+- **Starstruck** - Repository visibility optimization
 
-### Currently Available
-- **Pull Shark** 🦈 - Merge pull requests (2/16/128/1024 for tiers)
-- **Quickdraw** ⚡ - Close issues under 5 minutes
-- **YOLO** 🎯 - Direct commits to main branch
+### ⚙️ Workflow Modes
 
-### Coming Soon
-- **Pair Extraordinaire** 👥 - Co-authored commits
-- **Galaxy Brain** 🧠 - Accepted discussion answers
-- **Heart On Your Sleeve** ❤️ - Issue reactions
-- **Open Sourcerer** 🔮 - Contributing to open source
-- **Starstruck** ⭐ - Repository visibility tools
+**One-Click Express**
+Fully automated workflow execution with progress tracking and real-time logging.
 
-## 🚀 Quick Start
+**Step-by-Step Guided**
+Interactive mode with manual confirmation at each step. Perfect for learning and understanding each API call.
 
-### Prerequisites
+**Scheduled Campaigns**
+Spread actions over days or weeks for high-tier achievements. Configurable frequency and drip scheduling to respect rate limits.
 
-- [Bun](https://bun.sh) v1.0.0+ (recommended) or Node.js v18+
-- GitHub account
+### 🧹 Cleanup & Organization
+
+**Automatic Repository Deletion**
+Configure auto-cleanup for test repositories after workflow completion. Keeps your GitHub profile clean.
+
+**Pull Request Management**
+Automatic PR closure and branch deletion after achievement workflows complete.
+
+**Configurable Naming**
+- **Professional Mode**: Realistic repo names like "sandbox-project" and "demo-app"
+- **Custom Templates**: Define your own naming patterns with variables
+- **Descriptive Mode**: Clear names like "practice-repo" and "test-workflow"
+
+### 🔒 Security & Privacy
+
+**Server-Side Token Storage**
+GitHub tokens stored securely with encrypted HttpOnly cookies. Never exposed to client-side JavaScript.
+
+**OAuth Authentication**
+One-click GitHub OAuth sign-in. No manual token copying or credential management.
+
+**Rate Limit Protection**
+Automatic rate limit detection, exponential backoff, and intelligent request throttling.
+
+### 📊 Monitoring & Insights
+
+**Activity Logging**
+Detailed audit trail of all API calls, responses, and workflow steps.
+
+**Achievement History**
+Track completed workflows, duration, success rates, and repository URLs.
+
+**Progress Tracking**
+Real-time progress indicators for long-running workflows.
+
+**Data Export**
+Export your activity logs and achievement history as JSON for analysis.
+
+## Quick Start
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone <your-repo-url>
-cd repo-retriever
+# Install dependencies
+npm install
 
-# Install dependencies with Bun
-bun install
+# Configure GitHub OAuth (see SETUP.md for details)
+# Add your GITHUB_ID and GITHUB_SECRET to .env
 
-# Set up your GitHub OAuth App (see SETUP.md)
-# Update .env with your credentials
-
-# Start the development server
-bun run dev
+# Start the application
+npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000)
+Visit [http://localhost:3000](http://localhost:3000) and sign in with GitHub.
 
-## 📖 Full Documentation
+### First Workflow
 
-See [SETUP.md](./SETUP.md) for complete setup instructions including:
-- GitHub OAuth App creation
-- Environment configuration
-- Troubleshooting guide
-- Architecture overview
+1. **Sign in** with your GitHub account
+2. **Choose an achievement** from the dashboard
+3. **Configure settings** (optional: enable auto-cleanup)
+4. **Run the workflow** and watch it complete
+5. **Check your GitHub profile** to see the achievement unlock
 
-## 🛠️ Available Scripts
+## Configuration Options
+
+### Repository Settings
+
+```typescript
+{
+  namingMode: 'professional' | 'custom' | 'descriptive',
+  autoDeleteRepos: true | false,
+  customRepoTemplate: 'my-project-{date}',
+  customCommitTemplate: 'Update files - {timestamp}'
+}
+```
+
+### Workflow Settings
+
+```typescript
+{
+  executionMode: 'express' | 'guided' | 'scheduled',
+  frequency: 'daily' | 'weekly' | 'custom',
+  targetTier: 'default' | 'bronze' | 'silver' | 'gold'
+}
+```
+
+## Use Cases
+
+### For Developers
+- Learn GitHub's REST API through practical examples
+- Test automation scripts in a safe environment
+- Practice Git workflows without affecting real projects
+- Understand achievement requirements and patterns
+
+### For Testers
+- Generate test repositories for CI/CD pipeline testing
+- Create realistic contribution patterns for QA environments
+- Test GitHub integrations and webhooks
+- Simulate collaborative development scenarios
+
+### For Students
+- Learn version control workflows hands-on
+- Understand GitHub's achievement system
+- Practice API authentication and rate limiting
+- Build portfolio projects demonstrating API skills
+
+### For Teams
+- Prototype GitHub automation workflows
+- Test repository management strategies
+- Validate security and permission patterns
+- Train new team members on GitHub workflows
+
+## Documentation
+
+- **[SETUP.md](./SETUP.md)** - Complete installation and configuration guide
+- **[BUN_MIGRATION.md](./BUN_MIGRATION.md)** - Performance optimization with Bun
+
+## Available Scripts
 
 ```bash
-bun run dev        # Start development server
-bun run build      # Create production build
-bun run start      # Start production server
-bun run lint       # Run ESLint
-bun run typecheck  # Check TypeScript types
+npm run dev        # Development server
+npm run build      # Production build
+npm run start      # Production server
+npm run lint       # Code linting
+npm run typecheck  # Type checking
 ```
 
-## 🏗️ Tech Stack
+## Security & Ethics
 
-- **Runtime**: Bun 1.3.0
-- **Framework**: Next.js 13.5.1
-- **Auth**: NextAuth.js 4.24
-- **UI**: React 18 + Tailwind CSS 3.3
-- **Components**: Radix UI + shadcn/ui
-- **Database**: Supabase (PostgreSQL)
-- **Types**: TypeScript 5.2
+**Data Privacy**
+- Tokens stored server-side with encryption
+- No data sent to third-party services
+- Activity logs stored locally only
 
-## 🔐 Security Architecture
+**Ethical Use**
+- Clearly mark automated repositories
+- Respect GitHub's rate limits
+- Follow GitHub's Terms of Service
+- Use for learning and testing only
 
-```
-┌─────────────────────────────────────────┐
-│  Browser (Client-Side)                  │
-│  - React UI                             │
-│  - No tokens stored                     │
-│  - Session management                   │
-└──────────────┬──────────────────────────┘
-               │ Authenticated requests
-               ↓
-┌─────────────────────────────────────────┐
-│  Next.js API Routes (Server-Side)       │
-│  - NextAuth.js OAuth                    │
-│  - Token extraction from session        │
-│  - GitHub API proxy                     │
-└──────────────┬──────────────────────────┘
-               │ Authenticated API calls
-               ↓
-┌─────────────────────────────────────────┐
-│  GitHub REST API                        │
-│  - Rate limit handling                  │
-│  - Achievement automation               │
-└─────────────────────────────────────────┘
-```
+**Responsible Automation**
+- Automatic cleanup available
+- Rate limit monitoring built-in
+- Transparent audit logging
+- No deceptive practices
 
-## 🎨 Features
+## Technical Architecture
 
-- **One-click OAuth** - Sign in with GitHub instantly
-- **Real-time progress** - Watch achievements unlock live
-- **Activity logging** - Detailed audit trail
-- **Achievement history** - Track your progress over time
-- **Dark mode** - Easy on the eyes
-- **Responsive design** - Works on all devices
+**Frontend**: React with Next.js for server-side rendering and API routes
 
-## 🤝 Contributing
+**Authentication**: NextAuth.js with GitHub OAuth provider for secure token management
 
-Contributions are welcome! Please ensure:
-- Code follows existing patterns
-- TypeScript types are correct
-- Security best practices maintained
-- Tests pass (when implemented)
+**Database**: Supabase PostgreSQL for workflow configuration and campaign scheduling
 
-## 📝 License
+**Runtime**: Compatible with both Node.js and Bun for optimal performance
 
-This project is for educational purposes. Always follow GitHub's Terms of Service and Acceptable Use Policy.
+See [SETUP.md](./SETUP.md) for detailed architecture diagrams and security implementation.
 
-## ⚠️ Disclaimer
+## Contributing
 
-RepoRetriever is a tool for learning GitHub's API and achievement system. Use responsibly and ethically. Achievements should reflect genuine contributions.
+Contributions welcome! Focus areas:
+- Additional achievement automations
+- Improved rate limit handling
+- Enhanced workflow configurations
+- Better error handling and recovery
 
-## 🙏 Acknowledgments
+## License
 
-- Built with [Bun](https://bun.sh) for exceptional performance
-- UI components from [shadcn/ui](https://ui.shadcn.com)
-- Authentication via [NextAuth.js](https://next-auth.js.org)
-- Hosted on [Vercel](https://vercel.com) (when deployed)
+Educational use only. Follow GitHub's Terms of Service and API usage guidelines.
+
+## Disclaimer
+
+RepoRetriever is a learning tool for understanding GitHub's API and achievement system. Use responsibly and ethically. Achievements should ultimately reflect genuine contributions to the developer community.
 
 ---
 
-**Made with ❤️ and a lot of ☕**
-
-**Powered by Bun ⚡**
+**Built for learning, testing, and responsible GitHub automation.**
