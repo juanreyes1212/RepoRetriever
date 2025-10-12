@@ -9,7 +9,18 @@ RepoRetriever now uses **NextAuth.js** for secure, server-side authentication wi
 ## Prerequisites
 
 1. A GitHub account
-2. Node.js installed (v18+ recommended)
+2. **Bun runtime installed** (v1.0.0+) - [Install Bun](https://bun.sh)
+   - Alternatively: Node.js v18+ (but Bun is recommended for performance)
+
+---
+
+## Performance with Bun
+
+RepoRetriever uses **Bun** as the JavaScript runtime and package manager for:
+- ⚡ **3-4x faster** package installation than npm
+- 🚀 **Faster builds** with native bundling
+- 💾 **Lower memory usage** during development
+- 🔥 **Hot reload optimization** for faster development
 
 ---
 
@@ -39,19 +50,33 @@ GITHUB_SECRET=your_actual_client_secret_here
 
 **Note**: The other values (`NEXTAUTH_SECRET`, `NEXTAUTH_URL`, Supabase config) are already set.
 
-### 3. Install Dependencies
+### 3. Install Bun (if not already installed)
 
 ```bash
-npm install
+curl -fsSL https://bun.sh/install | bash
+source ~/.bashrc  # or source ~/.zshrc for zsh
 ```
 
-### 4. Run the Development Server
+Verify installation:
+```bash
+bun --version
+```
+
+### 4. Install Dependencies
 
 ```bash
-npm run dev
+bun install
 ```
 
-### 5. Open the Application
+This will install all dependencies significantly faster than npm.
+
+### 5. Run the Development Server
+
+```bash
+bun run dev
+```
+
+### 6. Open the Application
 
 Navigate to [http://localhost:3000](http://localhost:3000)
 
@@ -137,6 +162,7 @@ These scopes are necessary for automating GitHub achievements.
 
 ### ✅ Completed
 
+- **Bun integration** for faster builds and package management
 - NextAuth.js integration with GitHub provider
 - Server-side session management
 - Secure API route helpers
@@ -176,20 +202,40 @@ These scopes are necessary for automating GitHub achievements.
 ### Build errors
 
 ```bash
-npm run build
+bun run build
 ```
 
 Should complete without errors. If not, check the console output.
+
+### Bun not found
+
+If you get "command not found: bun", ensure Bun is in your PATH:
+
+```bash
+export PATH="$HOME/.bun/bin:$PATH"
+# Add this line to ~/.bashrc or ~/.zshrc to make it permanent
+```
 
 ### Port already in use
 
 If port 3000 is busy:
 
 ```bash
-PORT=3001 npm run dev
+PORT=3001 bun run dev
 ```
 
 Then update `NEXTAUTH_URL=http://localhost:3001` in `.env`
+
+### Using npm instead of Bun
+
+If you prefer to use npm:
+
+```bash
+npm install
+npm run dev
+```
+
+Note: You'll need to update `package.json` scripts to remove the `bun --bun` prefix.
 
 ---
 
@@ -215,6 +261,7 @@ Once authentication is working:
 
 ## Additional Resources
 
+- [Bun Documentation](https://bun.sh/docs)
 - [NextAuth.js Documentation](https://next-auth.js.org/)
 - [GitHub OAuth Apps](https://docs.github.com/en/apps/oauth-apps)
 - [GitHub REST API](https://docs.github.com/en/rest)

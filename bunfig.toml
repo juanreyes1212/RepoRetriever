@@ -1,0 +1,26 @@
+# Bun configuration for RepoRetriever
+
+[install]
+# Use exact versions for reproducible builds
+exact = true
+
+# Enable cache for faster installs
+cache = true
+
+# Parallel downloads for better performance
+parallel = true
+
+# Automatically clean up old dependencies
+auto = true
+
+[install.scopes]
+# Use default npm registry
+"@radix-ui" = { url = "https://registry.npmjs.org/" }
+"@supabase" = { url = "https://registry.npmjs.org/" }
+
+[run]
+# Enable bun's JSX runtime
+bun = true
+
+# Prefer bun runtime over Node.js
+prefer = "bun"
