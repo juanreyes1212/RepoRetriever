@@ -78,6 +78,12 @@ Track completed workflows, duration, success rates, and repository URLs.
 **Progress Tracking**
 Real-time progress indicators for long-running workflows.
 
+**Analytics Dashboard**
+View comprehensive statistics including success rates, workflow breakdowns, and performance metrics powered by Supabase.
+
+**User Feedback**
+Built-in feedback system for bug reports, feature requests, and ratings with optional email follow-up.
+
 **Data Export**
 Export your activity logs and achievement history as JSON for analysis.
 
@@ -158,7 +164,10 @@ Visit [http://localhost:3000](http://localhost:3000) and sign in with GitHub.
 ## Documentation
 
 - **[SETUP.md](./SETUP.md)** - Complete installation and configuration guide
+- **[TESTING.md](./TESTING.md)** - Cypress testing guide and best practices
+- **[ANALYTICS.md](./ANALYTICS.md)** - Analytics implementation and user tracking
 - **[BUN_MIGRATION.md](./BUN_MIGRATION.md)** - Performance optimization with Bun
+- **[AUDIT_REPORT.md](./AUDIT_REPORT.md)** - Comprehensive project audit results
 
 ## Available Scripts
 
@@ -168,14 +177,18 @@ npm run build      # Production build
 npm run start      # Production server
 npm run lint       # Code linting
 npm run typecheck  # Type checking
+npm test           # Run all Cypress tests
+npm run test:open  # Open Cypress Test Runner
+npm run test:e2e   # Run E2E tests only
 ```
 
 ## Security & Ethics
 
 **Data Privacy**
 - Tokens stored server-side with encryption
+- Analytics data isolated per user with RLS
 - No data sent to third-party services
-- Activity logs stored locally only
+- Export and deletion available on request
 
 **Ethical Use**
 - Clearly mark automated repositories

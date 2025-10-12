@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "cypress run",
+    "test:open": "cypress open",
+    "test:component": "cypress run --component",
+    "test:e2e": "cypress run --e2e"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -70,5 +74,9 @@
     "typescript": "5.2.2",
     "vaul": "^0.9.9",
     "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@testing-library/cypress": "^10.1.0",
+    "cypress": "^15.4.0"
   }
 }
