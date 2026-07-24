@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { History, ExternalLink, Clock, CheckCircle2, XCircle } from 'lucide-react';
+import { History, ExternalLink, Clock, CircleCheck as CheckCircle2, Circle as XCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -46,15 +46,15 @@ export function AchievementHistory({ history }: AchievementHistoryProps) {
   const failedCount = history.filter(h => h.status === 'failed').length;
 
   return (
-    <Card className="clay-card">
+    <Card className="neu-surface border-0">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <History className="h-5 w-5" />
+          <History className="h-5 w-5 text-primary" />
           Fetch History
         </CardTitle>
         <CardDescription>
           {history.length === 0
-            ? 'RepoRetriever\'s fetch history will appear here'
+            ? "RepoRetriever's fetch history will appear here"
             : `${successCount} successful fetches, ${failedCount} failed`}
         </CardDescription>
       </CardHeader>
@@ -62,17 +62,20 @@ export function AchievementHistory({ history }: AchievementHistoryProps) {
         <ScrollArea className="h-[400px] w-full pr-4">
           {history.length === 0 ? (
             <div className="flex items-center justify-center h-full text-muted-foreground">
-              <p>No fetches yet. Send RepoRetriever to work above!</p>
+              <div className="text-center space-y-2">
+                <div className="text-4xl opacity-40">{'>'}_</div>
+                <p>No fetches yet. Send RepoRetriever to work above!</p>
+              </div>
             </div>
           ) : (
             <div className="space-y-3">
               {history.map((record) => (
                 <div
                   key={record.id}
-                  className={`p-4 rounded-lg clay-badge transition-all ${
+                  className={`p-4 rounded-lg neu-inset transition-all ${
                     record.status === 'success'
-                      ? 'bg-success/5 border-success/20'
-                      : 'bg-destructive/5 border-destructive/20'
+                      ? 'glow-ring-accent'
+                      : 'glow-ring-destructive'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -87,7 +90,7 @@ export function AchievementHistory({ history }: AchievementHistoryProps) {
                           </h4>
                           <Badge
                             variant={record.status === 'success' ? 'default' : 'destructive'}
-                            className="flex items-center gap-1"
+                            className="flex items-center gap-1 neu-pill border-0"
                           >
                             {record.status === 'success' ? (
                               <CheckCircle2 className="h-3 w-3" />
@@ -148,7 +151,7 @@ export function AchievementHistory({ history }: AchievementHistoryProps) {
                           )}
 
                           {record.errorMessage && (
-                            <p className="text-destructive text-xs mt-2">
+                            <p className="text-destructive text-xs mt-2 font-mono">
                               Error: {record.errorMessage}
                             </p>
                           )}

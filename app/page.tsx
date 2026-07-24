@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useSession } from 'next-auth/react';
-import { Shield, Dog } from 'lucide-react';
+import { Shield, Dog, Terminal, Zap } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { TokenInput } from '@/components/token-input';
 import { AchievementCard, type AchievementStatus } from '@/components/achievement-card';
@@ -11,6 +11,7 @@ import { SettingsPanel } from '@/components/settings-panel';
 import { AchievementHistory } from '@/components/achievement-history';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { storageUtils, type AchievementRecord, type LogEntry } from '@/lib/storage';
 import { toast } from 'sonner';
 
@@ -20,6 +21,12 @@ interface AchievementState {
   status: AchievementStatus;
   progress: number;
 }
+
+const ACHIEVEMENT_META: Record<AchievementType, { endpoint: string }> = {
+  pull_shark: { endpoint: 'pull-shark' },
+  quickdraw: { endpoint: 'quickdraw' },
+  yolo: { endpoint: 'yolo' },
+};
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -32,6 +39,11 @@ export default function Home() {
     yolo: { status: 'idle', progress: 0 },
   });
 
+  const addLog = React.useCallback((level: 'info' | 'success' | 'warning' | 'error', message: string, details?: unknown) => {
+    storageUtils.addLog({ level, message, details: details as any });
+    setLogs(storageUtils.getLogs());
+  }, []);
+
   React.useEffect(() => {
     const prefs = storageUtils.getPreferences();
     setAutoDeleteRepos(prefs.autoDeleteRepos);
@@ -43,12 +55,7 @@ export default function Home() {
     if (status === 'authenticated' && session?.user) {
       addLog('success', `Connected as ${session.user.name || session.user.email}`);
     }
-  }, [status, session]);
-
-  const addLog = (level: 'info' | 'success' | 'warning' | 'error', message: string, details?: any) => {
-    storageUtils.addLog({ level, message, details });
-    setLogs(storageUtils.getLogs());
-  };
+  }, [status, session, addLog]);
 
   const handleAutoDeleteChange = (value: boolean) => {
     setAutoDeleteRepos(value);
@@ -87,7 +94,7 @@ export default function Home() {
     }, 1000);
 
     try {
-      const endpoint = `/api/achievements/${type.replace('_', '-')}`;
+      const endpoint = `/api/achievements/${ACHIEVEMENT_META[type].endpoint}`;
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -120,6 +127,7 @@ export default function Home() {
           status: 'success',
           repositoryUrl: result.repository,
           pullRequestUrls: result.pullRequest ? [result.pullRequest] : undefined,
+          issueUrl: result.issue,
           durationSeconds,
           createdAt: new Date().toISOString(),
         };
@@ -218,44 +226,104 @@ export default function Home() {
   const isConnected = status === 'authenticated';
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b clay-card">
+    <div className="min-h-screen bg-background grid-bg">
+      <header className="sticky top-0 z-50 border-b border-border/50 backdrop-blur-md bg-background/80">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-3 rounded-full bg-primary/10 clay-badge">
-              <Dog className="h-7 w-7 text-primary" />
+            <div className="p-2.5 rounded-xl neu-pill">
+              <Dog className="h-6 w-6 text-primary glow-primary" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold">RepoRetriever</h1>
-              <p className="text-sm text-muted-foreground">Your loyal GitHub achievement companion</p>
+              <h1 className="text-xl font-bold tracking-tight glow-primary">RepoRetriever</h1>
+              <p className="text-xs text-muted-foreground">GitHub achievement companion</p>
             </div>
           </div>
-          <ThemeToggle />
+          <div className="flex items-center gap-3">
+            {isConnected && (
+              <div className="hidden sm:flex items-center gap-2 neu-pill px-3 py-1.5 rounded-full">
+                <div className="h-2 w-2 rounded-full bg-success animate-pulse-glow" />
+                <span className="text-xs text-muted-foreground">Connected</span>
+              </div>
+            )}
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <div className="max-w-7xl mx-auto space-y-8">
-          <Alert className="clay-card border-0">
-            <Shield className="h-4 w-4" />
-            <AlertDescription>
-              <strong>Enhanced Security:</strong> Your GitHub token is securely stored server-side with encrypted HttpOnly cookies. RepoRetriever uses OAuth authentication and never exposes your credentials to client-side code.
-            </AlertDescription>
-          </Alert>
-
-          <TokenInput />
-
-          {isConnected && (
+        <div className="max-w-6xl mx-auto space-y-8">
+          {!isConnected ? (
             <>
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <Dog className="h-6 w-6 text-primary" />
-                  <h2 className="text-2xl font-bold">Achievements to Fetch</h2>
+              <section className="text-center space-y-6 pt-8 pb-4 animate-fade-in-up">
+                <div className="inline-flex items-center gap-2 neu-pill px-4 py-2 rounded-full">
+                  <Terminal className="h-4 w-4 text-primary" />
+                  <span className="text-sm text-muted-foreground">Automated GitHub achievement fetcher</span>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+                  Teach your GitHub profile
+                  <br />
+                  <span className="glow-primary text-primary">new tricks</span>
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  RepoRetriever fetches GitHub achievements by performing the real API actions
+                  that trigger them. Sign in, pick an achievement, and watch it work.
+                </p>
+              </section>
+
+              <TokenInput />
+
+              <section className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+                <div className="neu-surface rounded-xl p-6 space-y-3">
+                  <div className="flex items-center gap-2 text-primary">
+                    <Zap className="h-5 w-5" />
+                    <h3 className="font-semibold">One-Click Fetch</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Each achievement triggers the exact sequence of GitHub API calls needed to unlock it.
+                  </p>
+                </div>
+                <div className="neu-surface rounded-xl p-6 space-y-3">
+                  <div className="flex items-center gap-2 text-primary">
+                    <Shield className="h-5 w-5" />
+                    <h3 className="font-semibold">Server-Side Security</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Your GitHub token stays on the server in encrypted HttpOnly cookies. Never exposed to the browser.
+                  </p>
+                </div>
+                <div className="neu-surface rounded-xl p-6 space-y-3">
+                  <div className="flex items-center gap-2 text-primary">
+                    <Dog className="h-5 w-5" />
+                    <h3 className="font-semibold">Auto Cleanup</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Optional automatic repository deletion keeps your GitHub profile tidy after each fetch.
+                  </p>
+                </div>
+              </section>
+            </>
+          ) : (
+            <>
+              <Alert className="neu-surface-flat border-0">
+                <Shield className="h-4 w-4 text-accent" />
+                <AlertDescription className="text-muted-foreground">
+                  <span className="text-foreground font-medium">Secure connection active.</span>{' '}
+                  Your GitHub token is encrypted server-side. RepoRetriever performs real API actions
+                  to trigger achievement unlocks.
+                </AlertDescription>
+              </Alert>
+
+              <TokenInput />
+
+              <section>
+                <div className="flex items-center gap-2 mb-5">
+                  <Terminal className="h-5 w-5 text-primary" />
+                  <h2 className="text-xl font-bold tracking-tight">Achievements to Fetch</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <AchievementCard
                     title="Pull Shark"
-                    description="Fetch & merge 2 pull requests"
+                    description="Create and merge 2 pull requests"
                     emoji="🦈"
                     status={achievements.pull_shark.status}
                     progress={achievements.pull_shark.progress}
@@ -266,7 +334,7 @@ export default function Home() {
                   />
                   <AchievementCard
                     title="Quickdraw"
-                    description="Fetch & close issue in under 5 minutes"
+                    description="Create and close an issue rapidly"
                     emoji="⚡"
                     status={achievements.quickdraw.status}
                     progress={achievements.quickdraw.progress}
@@ -277,7 +345,7 @@ export default function Home() {
                   />
                   <AchievementCard
                     title="YOLO"
-                    description="Fetch direct commits to main"
+                    description="Push direct commits to main branch"
                     emoji="🎯"
                     status={achievements.yolo.status}
                     progress={achievements.yolo.progress}
@@ -287,35 +355,54 @@ export default function Home() {
                     requirements="2 commits"
                   />
                 </div>
-              </div>
+              </section>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <ActivityLog logs={logs} onClear={handleClearLogs} />
-                <div className="space-y-6">
-                  <SettingsPanel
-                    autoDeleteRepos={autoDeleteRepos}
-                    onAutoDeleteChange={handleAutoDeleteChange}
-                    onClearHistory={handleClearHistory}
-                    onClearLogs={handleClearLogs}
-                    onExportData={handleExportData}
-                    historyCount={history.length}
-                    logCount={logs.length}
-                  />
-                </div>
-              </div>
-
-              <AchievementHistory history={history} />
+              <section>
+                <Tabs defaultValue="log" className="w-full">
+                  <TabsList className="neu-inset border-0">
+                    <TabsTrigger value="log" className="data-[state=active]:text-primary">
+                      <Terminal className="h-4 w-4 mr-2" />
+                      Activity Log
+                    </TabsTrigger>
+                    <TabsTrigger value="history" className="data-[state=active]:text-primary">
+                      <Dog className="h-4 w-4 mr-2" />
+                      Fetch History
+                    </TabsTrigger>
+                    <TabsTrigger value="settings" className="data-[state=active]:text-primary">
+                      <Shield className="h-4 w-4 mr-2" />
+                      Settings
+                    </TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="log" className="mt-4">
+                    <ActivityLog logs={logs} onClear={handleClearLogs} />
+                  </TabsContent>
+                  <TabsContent value="history" className="mt-4">
+                    <AchievementHistory history={history} />
+                  </TabsContent>
+                  <TabsContent value="settings" className="mt-4">
+                    <SettingsPanel
+                      autoDeleteRepos={autoDeleteRepos}
+                      onAutoDeleteChange={handleAutoDeleteChange}
+                      onClearHistory={handleClearHistory}
+                      onClearLogs={handleClearLogs}
+                      onExportData={handleExportData}
+                      historyCount={history.length}
+                      logCount={logs.length}
+                    />
+                  </TabsContent>
+                </Tabs>
+              </section>
             </>
           )}
         </div>
       </main>
 
-      <footer className="border-t mt-16 clay-card">
+      <footer className="border-t border-border/50 mt-16">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <p className="flex items-center gap-2">
-              <Dog className="h-4 w-4" />
-              RepoRetriever - A loyal companion for GitHub achievements
+              <Dog className="h-4 w-4 text-primary" />
+              RepoRetriever — A loyal companion for GitHub achievements
             </p>
             <div className="flex items-center gap-4">
               <a

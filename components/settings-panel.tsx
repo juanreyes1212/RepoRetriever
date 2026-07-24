@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Settings, Trash2, Download, AlertTriangle } from 'lucide-react';
+import { Settings, Trash2, Download, TriangleAlert as AlertTriangle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -40,17 +40,17 @@ export function SettingsPanel({
   logCount,
 }: SettingsPanelProps) {
   return (
-    <Card className="clay-card">
+    <Card className="neu-surface border-0">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Settings className="h-5 w-5" />
+          <Settings className="h-5 w-5 text-primary" />
           Settings
         </CardTitle>
         <CardDescription>Manage your preferences and data</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-4">
-          <div className="flex items-center justify-between space-x-4">
+          <div className="flex items-center justify-between space-x-4 p-4 rounded-xl neu-inset">
             <div className="flex-1 space-y-1">
               <Label htmlFor="auto-delete">Delete repositories after unlock</Label>
               <p className="text-sm text-muted-foreground">
@@ -65,9 +65,9 @@ export function SettingsPanel({
           </div>
 
           {autoDeleteRepos && (
-            <Alert>
-              <AlertTriangle className="h-4 w-4" />
-              <AlertDescription>
+            <Alert className="neu-inset border-0 glow-ring-destructive">
+              <AlertTriangle className="h-4 w-4 text-destructive" />
+              <AlertDescription className="text-muted-foreground">
                 Repositories will be permanently deleted from GitHub after each achievement. This action cannot be undone.
               </AlertDescription>
             </Alert>
@@ -77,17 +77,17 @@ export function SettingsPanel({
         <Separator />
 
         <div className="space-y-3">
-          <h4 className="text-sm font-medium">Data Management</h4>
+          <h4 className="text-sm font-medium text-primary">Data Management</h4>
 
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between p-3 rounded-xl neu-inset">
               <div>
-                <p className="text-sm">Achievement History</p>
+                <p className="text-sm font-medium">Achievement History</p>
                 <p className="text-xs text-muted-foreground">{historyCount} records stored</p>
               </div>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline" size="sm" disabled={historyCount === 0} className="clay-button">
+                  <Button variant="outline" size="sm" disabled={historyCount === 0} className="neu-button">
                     <Trash2 className="h-3 w-3 mr-2" />
                     Clear
                   </Button>
@@ -107,14 +107,14 @@ export function SettingsPanel({
               </AlertDialog>
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between p-3 rounded-xl neu-inset">
               <div>
-                <p className="text-sm">Activity Logs</p>
+                <p className="text-sm font-medium">Activity Logs</p>
                 <p className="text-xs text-muted-foreground">{logCount} entries stored</p>
               </div>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline" size="sm" disabled={logCount === 0} className="clay-button">
+                  <Button variant="outline" size="sm" disabled={logCount === 0} className="neu-button">
                     <Trash2 className="h-3 w-3 mr-2" />
                     Clear
                   </Button>
@@ -139,7 +139,7 @@ export function SettingsPanel({
               size="sm"
               onClick={onExportData}
               disabled={historyCount === 0 && logCount === 0}
-              className="w-full clay-button"
+              className="w-full neu-button"
             >
               <Download className="h-3 w-3 mr-2" />
               Export All Data

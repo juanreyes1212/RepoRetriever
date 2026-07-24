@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Award, CheckCircle2, Loader2, XCircle, Clock } from 'lucide-react';
+import { Award, CircleCheck as CheckCircle2, Loader as Loader2, Circle as XCircle, Clock } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -24,26 +24,30 @@ const statusConfig = {
   idle: {
     icon: Award,
     color: 'text-muted-foreground',
-    bgColor: 'bg-muted',
+    bgColor: 'neu-inset',
     label: 'Ready',
+    glow: '',
   },
   in_progress: {
     icon: Loader2,
     color: 'text-warning',
-    bgColor: 'bg-warning/10',
+    bgColor: 'neu-inset',
     label: 'Running',
+    glow: 'glow-ring-primary',
   },
   success: {
     icon: CheckCircle2,
     color: 'text-success',
-    bgColor: 'bg-success/10',
+    bgColor: 'neu-inset',
     label: 'Complete',
+    glow: 'glow-ring-accent',
   },
   error: {
     icon: XCircle,
     color: 'text-destructive',
-    bgColor: 'bg-destructive/10',
+    bgColor: 'neu-inset',
     label: 'Failed',
+    glow: 'glow-ring-destructive',
   },
 };
 
@@ -62,17 +66,17 @@ export function AchievementCard({
   const StatusIcon = config.icon;
 
   return (
-    <Card className={`clay-card transition-all ${status === 'in_progress' ? 'ring-2 ring-warning' : ''}`}>
+    <Card className={`neu-raised border-0 transition-all ${config.glow} ${status === 'in_progress' ? 'animate-pulse-glow' : ''}`}>
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="text-4xl">{emoji}</div>
+            <div className="text-4xl crt-flicker">{emoji}</div>
             <div>
               <CardTitle className="text-xl">{title}</CardTitle>
               <CardDescription className="mt-1">{description}</CardDescription>
             </div>
           </div>
-          <Badge variant="outline" className={`clay-badge ${config.bgColor} ${config.color} border-0`}>
+          <Badge variant="outline" className={`neu-pill border-0 ${config.color}`}>
             <StatusIcon className={`h-3 w-3 mr-1 ${status === 'in_progress' ? 'animate-spin' : ''}`} />
             {config.label}
           </Badge>
@@ -82,13 +86,10 @@ export function AchievementCard({
       <CardContent className="space-y-3">
         {status === 'in_progress' && (
           <div className="space-y-2">
-            <div className="relative h-3 w-full overflow-hidden rounded-full clay-input">
+            <div className="relative h-3 w-full overflow-hidden rounded-full neu-inset">
               <div
-                className="h-full bg-primary transition-all rounded-full"
-                style={{
-                  width: `${progress}%`,
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-                }}
+                className="h-full bg-primary transition-all rounded-full progress-glow"
+                style={{ width: `${progress}%` }}
               />
             </div>
             <p className="text-sm text-muted-foreground">Fetching: {progress}%</p>
@@ -97,13 +98,13 @@ export function AchievementCard({
 
         <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
           {estimatedTime && (
-            <div className="flex items-center gap-1 clay-badge px-2 py-1 rounded-full">
+            <div className="flex items-center gap-1 neu-pill px-2 py-1 rounded-full">
               <Clock className="h-3 w-3" />
               <span>{estimatedTime}</span>
             </div>
           )}
           {requirements && (
-            <div className="flex items-center gap-1 clay-badge px-2 py-1 rounded-full">
+            <div className="flex items-center gap-1 neu-pill px-2 py-1 rounded-full">
               <Award className="h-3 w-3" />
               <span>{requirements}</span>
             </div>
@@ -115,7 +116,7 @@ export function AchievementCard({
         <Button
           onClick={onUnlock}
           disabled={disabled || status === 'in_progress'}
-          className="w-full clay-button"
+          className="w-full neu-button"
           variant={status === 'error' ? 'outline' : 'default'}
         >
           {status === 'in_progress' ? (

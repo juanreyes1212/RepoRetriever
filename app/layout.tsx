@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'RepoRetriever - Fetch GitHub Achievements',
-  description: 'Your loyal companion for fetching GitHub achievements! RepoRetriever automates Pull Shark, Quickdraw, and YOLO achievements with enthusiasm and reliability.',
+  description: 'Your loyal companion for fetching GitHub achievements. RepoRetriever automates Pull Shark, Quickdraw, and YOLO achievements with enthusiasm and reliability.',
 };
 
 export default function RootLayout({
@@ -18,13 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body className={`${inter.className} bg-background text-foreground min-h-screen`}>
         <AuthProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="dark"
+            enableSystem={false}
             disableTransitionOnChange
           >
             {children}

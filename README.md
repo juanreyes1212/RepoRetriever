@@ -1,234 +1,53 @@
-# 🐕 RepoRetriever
+# RepoRetriever
 
-Automate your GitHub workflow with intelligence and precision. RepoRetriever helps you unlock achievements, learn the GitHub API, test automation workflows, and practice contribution patterns in a safe, controlled environment.
+Your loyal companion for fetching GitHub achievements.
 
-## What RepoRetriever Does
+## What It Is
 
-**GitHub Achievement Automation**
-Unlock GitHub profile achievements through automated workflows. Understand how achievements work by seeing the exact API calls and patterns required.
+RepoRetriever is a GitHub achievement automation tool. It performs the real sequence of GitHub API actions that trigger profile achievements — creating repositories, opening and merging pull requests, opening and closing issues, and pushing direct commits to main. You sign in with GitHub, pick an achievement, and RepoRetriever does the fetching.
 
-**Workflow Testing & Learning**
-Practice GitHub automation patterns, test API interactions, and learn repository management without affecting production projects.
+## What It Fetches
 
-**Contribution Pattern Practice**
-Generate realistic contribution patterns for testing CI/CD pipelines, exploring Git workflows, and understanding collaborative development.
+**Pull Shark** — Creates a repository, opens a pull request from a feature branch, and merges it into main. GitHub awards Pull Shark for merged PRs.
 
-**API Rate Limit Management**
-Monitor and optimize GitHub API usage with built-in rate limit tracking, exponential backoff, and intelligent request scheduling.
+**Quickdraw** — Creates a repository, opens an issue, and closes it within seconds. GitHub awards Quickdraw for rapidly resolving issues.
 
-**Clean Development Environment**
-Automatic repository and pull request cleanup keeps your GitHub account organized. All test repositories are clearly marked and can be batch-deleted.
+**YOLO** — Creates a repository and pushes commits directly to the main branch without a pull request. GitHub awards YOLO for committing straight to main.
 
-## Core Features
+## How It Works
 
-### 🎯 Achievement Automation
+1. **Sign in with GitHub OAuth** — Your token is stored server-side in encrypted HttpOnly cookies. It is never exposed to client-side JavaScript.
+2. **Choose an achievement** — Each card shows the estimated time and what GitHub actions it performs.
+3. **Fetch** — RepoRetriever calls the GitHub API to perform the exact operations that trigger the achievement. Progress is shown in real-time.
+4. **Optional cleanup** — Enable auto-delete and RepoRetriever removes the test repository after the achievement actions complete, keeping your GitHub profile tidy.
 
-- **Pull Shark** - Automated PR creation and merging workflows
-- **Quickdraw** - Issue creation and rapid resolution patterns
-- **YOLO** - Direct commit workflows and main branch strategies
-- **Pair Extraordinaire** - Co-authored commit automation
-- **Galaxy Brain** - Discussion interaction workflows
-- **Heart On Your Sleeve** - Reaction and engagement patterns
-- **Open Sourcerer** - External contribution simulation
-- **Starstruck** - Repository visibility optimization
+## About Achievement Validation
 
-### ⚙️ Workflow Modes
+GitHub does not expose a user's earned achievements through its API. There is no endpoint that returns "this user has the Pull Shark badge." RepoRetriever therefore cannot confirm whether an achievement actually unlocked — it only confirms that the actions which should trigger it were performed successfully. The success state in the UI means the API operations completed, not that GitHub confirmed the badge.
 
-**One-Click Express**
-Fully automated workflow execution with progress tracking and real-time logging.
+## Privacy & Security
 
-**Step-by-Step Guided**
-Interactive mode with manual confirmation at each step. Perfect for learning and understanding each API call.
+- **OAuth authentication** — No manual token copying. Sign in with GitHub, sign out anytime.
+- **Server-side token storage** — Tokens live in encrypted HttpOnly cookies, never in the browser.
+- **Local-only data** — Your activity log and fetch history are stored in your browser's local storage. Nothing is sent to a database or third-party service.
+- **Data export** — Export your full history and logs as JSON at any time.
+- **Data clearing** — Clear your history or logs individually, or export everything before clearing.
 
-**Scheduled Campaigns**
-Spread actions over days or weeks for high-tier achievements. Configurable frequency and drip scheduling to respect rate limits.
+## Responsible Use
 
-### 🧹 Cleanup & Organization
-
-**Automatic Repository Deletion**
-Configure auto-cleanup for test repositories after workflow completion. Keeps your GitHub profile clean.
-
-**Pull Request Management**
-Automatic PR closure and branch deletion after achievement workflows complete.
-
-**Configurable Naming**
-- **Professional Mode**: Realistic repo names like "sandbox-project" and "demo-app"
-- **Custom Templates**: Define your own naming patterns with variables
-- **Descriptive Mode**: Clear names like "practice-repo" and "test-workflow"
-
-### 🔒 Security & Privacy
-
-**Server-Side Token Storage**
-GitHub tokens stored securely with encrypted HttpOnly cookies. Never exposed to client-side JavaScript.
-
-**OAuth Authentication**
-One-click GitHub OAuth sign-in. No manual token copying or credential management.
-
-**Rate Limit Protection**
-Automatic rate limit detection, exponential backoff, and intelligent request throttling.
-
-### 📊 Monitoring & Insights
-
-**Activity Logging**
-Detailed audit trail of all API calls, responses, and workflow steps.
-
-**Achievement History**
-Track completed workflows, duration, success rates, and repository URLs.
-
-**Progress Tracking**
-Real-time progress indicators for long-running workflows.
-
-**Analytics Dashboard**
-View comprehensive statistics including success rates, workflow breakdowns, and performance metrics powered by Supabase.
-
-**User Feedback**
-Built-in feedback system for bug reports, feature requests, and ratings with optional email follow-up.
-
-**Data Export**
-Export your activity logs and achievement history as JSON for analysis.
-
-## Quick Start
-
-### Installation
-
-```bash
-# Install dependencies
-npm install
-
-# Configure GitHub OAuth (see SETUP.md for details)
-# Add your GITHUB_ID and GITHUB_SECRET to .env
-
-# Start the application
-npm run dev
-```
-
-Visit [http://localhost:3000](http://localhost:3000) and sign in with GitHub.
-
-### First Workflow
-
-1. **Sign in** with your GitHub account
-2. **Choose an achievement** from the dashboard
-3. **Configure settings** (optional: enable auto-cleanup)
-4. **Run the workflow** and watch it complete
-5. **Check your GitHub profile** to see the achievement unlock
-
-## Configuration Options
-
-### Repository Settings
-
-```typescript
-{
-  namingMode: 'professional' | 'custom' | 'descriptive',
-  autoDeleteRepos: true | false,
-  customRepoTemplate: 'my-project-{date}',
-  customCommitTemplate: 'Update files - {timestamp}'
-}
-```
-
-### Workflow Settings
-
-```typescript
-{
-  executionMode: 'express' | 'guided' | 'scheduled',
-  frequency: 'daily' | 'weekly' | 'custom',
-  targetTier: 'default' | 'bronze' | 'silver' | 'gold'
-}
-```
-
-## Use Cases
-
-### For Developers
-- Learn GitHub's REST API through practical examples
-- Test automation scripts in a safe environment
-- Practice Git workflows without affecting real projects
-- Understand achievement requirements and patterns
-
-### For Testers
-- Generate test repositories for CI/CD pipeline testing
-- Create realistic contribution patterns for QA environments
-- Test GitHub integrations and webhooks
-- Simulate collaborative development scenarios
-
-### For Students
-- Learn version control workflows hands-on
-- Understand GitHub's achievement system
-- Practice API authentication and rate limiting
-- Build portfolio projects demonstrating API skills
-
-### For Teams
-- Prototype GitHub automation workflows
-- Test repository management strategies
-- Validate security and permission patterns
-- Train new team members on GitHub workflows
-
-## Documentation
-
-- **[SETUP.md](./SETUP.md)** - Complete installation and configuration guide
-- **[TESTING.md](./TESTING.md)** - Cypress testing guide and best practices
-- **[ANALYTICS.md](./ANALYTICS.md)** - Analytics implementation and user tracking
-- **[BUN_MIGRATION.md](./BUN_MIGRATION.md)** - Performance optimization with Bun
-- **[AUDIT_REPORT.md](./AUDIT_REPORT.md)** - Comprehensive project audit results
-
-## Available Scripts
-
-```bash
-npm run dev        # Development server
-npm run build      # Production build
-npm run start      # Production server
-npm run lint       # Code linting
-npm run typecheck  # Type checking
-npm test           # Run all Cypress tests
-npm run test:open  # Open Cypress Test Runner
-npm run test:e2e   # Run E2E tests only
-```
-
-## Security & Ethics
-
-**Data Privacy**
-- Tokens stored server-side with encryption
-- Analytics data isolated per user with RLS
-- No data sent to third-party services
-- Export and deletion available on request
-
-**Ethical Use**
-- Clearly mark automated repositories
-- Respect GitHub's rate limits
+RepoRetriever is a learning tool for understanding GitHub's API and achievement system. Use it responsibly:
+- Enable auto-cleanup to avoid cluttering your GitHub profile with test repositories
+- Respect GitHub's rate limits — the app monitors them automatically
 - Follow GitHub's Terms of Service
-- Use for learning and testing only
+- Achievements should ultimately reflect genuine contributions to the developer community
 
-**Responsible Automation**
-- Automatic cleanup available
-- Rate limit monitoring built-in
-- Transparent audit logging
-- No deceptive practices
+## Tech Stack
 
-## Technical Architecture
-
-**Frontend**: React with Next.js for server-side rendering and API routes
-
-**Authentication**: NextAuth.js with GitHub OAuth provider for secure token management
-
-**Database**: Supabase PostgreSQL for workflow configuration and campaign scheduling
-
-**Runtime**: Compatible with both Node.js and Bun for optimal performance
-
-See [SETUP.md](./SETUP.md) for detailed architecture diagrams and security implementation.
-
-## Contributing
-
-Contributions welcome! Focus areas:
-- Additional achievement automations
-- Improved rate limit handling
-- Enhanced workflow configurations
-- Better error handling and recovery
-
-## License
-
-Educational use only. Follow GitHub's Terms of Service and API usage guidelines.
-
-## Disclaimer
-
-RepoRetriever is a learning tool for understanding GitHub's API and achievement system. Use responsibly and ethically. Achievements should ultimately reflect genuine contributions to the developer community.
+- **Frontend**: React, Next.js, Tailwind CSS, shadcn/ui
+- **Authentication**: NextAuth.js with GitHub OAuth
+- **GitHub API**: Server-side API routes calling GitHub's REST API
+- **Data storage**: Browser local storage (no database)
+- **Design**: Dark neumorphism with subtle CRT/sci-fi accents
 
 ---
 
