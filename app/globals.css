@@ -100,6 +100,7 @@
       hsl(32 10% 14%),
       hsl(30 12% 10%)
     );
+    color: hsl(var(--foreground)) !important;
     box-shadow:
       5px 5px 12px hsl(30 20% 3% / 0.9),
       -5px -5px 12px hsl(35 12% 16% / 0.4),
