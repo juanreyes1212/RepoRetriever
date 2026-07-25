@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { useSession } from 'next-auth/react';
 import { Shield, Dog, Terminal, Zap } from 'lucide-react';
-import { ThemeToggle } from '@/components/theme-toggle';
 import { TokenInput } from '@/components/token-input';
 import { AchievementCard, type AchievementStatus } from '@/components/achievement-card';
 import { ActivityLog } from '@/components/activity-log';
@@ -122,7 +121,7 @@ export default function Home() {
         }));
 
         const record: AchievementRecord = {
-          id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          id: `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
           achievementType: type,
           status: 'success',
           repositoryUrl: result.repository,
@@ -158,7 +157,7 @@ export default function Home() {
         const errorMessage = result.message || result.error || 'Unknown error';
 
         const record: AchievementRecord = {
-          id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          id: `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
           achievementType: type,
           status: 'failed',
           errorMessage,
@@ -227,10 +226,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background grid-bg">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:neu-raised focus:text-primary"
+      >
+        Skip to content
+      </a>
       <header className="sticky top-0 z-50 border-b border-border/50 backdrop-blur-md bg-background/80">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl neu-pill">
+            <div className="p-2.5 rounded-xl neu-pill" aria-hidden="true">
               <Dog className="h-6 w-6 text-primary glow-primary" />
             </div>
             <div>
@@ -240,23 +245,26 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-3">
             {isConnected && (
-              <div className="hidden sm:flex items-center gap-2 neu-pill px-3 py-1.5 rounded-full">
-                <div className="h-2 w-2 rounded-full bg-success animate-pulse-glow" />
+              <div
+                className="hidden sm:flex items-center gap-2 neu-pill px-3 py-1.5 rounded-full"
+                role="status"
+                aria-label="Connection status: connected"
+              >
+                <div className="h-2 w-2 rounded-full bg-success animate-pulse-glow" aria-hidden="true" />
                 <span className="text-xs text-muted-foreground">Connected</span>
               </div>
             )}
-            <ThemeToggle />
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main id="main-content" className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto space-y-8">
           {!isConnected ? (
             <>
               <section className="text-center space-y-6 pt-8 pb-4 animate-fade-in-up">
                 <div className="inline-flex items-center gap-2 neu-pill px-4 py-2 rounded-full">
-                  <Terminal className="h-4 w-4 text-primary" />
+                  <Terminal className="h-4 w-4 text-primary" aria-hidden="true" />
                   <span className="text-sm text-muted-foreground">Automated GitHub achievement fetcher</span>
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
@@ -275,7 +283,7 @@ export default function Home() {
               <section className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
                 <div className="neu-surface rounded-xl p-6 space-y-3">
                   <div className="flex items-center gap-2 text-primary">
-                    <Zap className="h-5 w-5" />
+                    <Zap className="h-5 w-5" aria-hidden="true" />
                     <h3 className="font-semibold">One-Click Fetch</h3>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -284,7 +292,7 @@ export default function Home() {
                 </div>
                 <div className="neu-surface rounded-xl p-6 space-y-3">
                   <div className="flex items-center gap-2 text-primary">
-                    <Shield className="h-5 w-5" />
+                    <Shield className="h-5 w-5" aria-hidden="true" />
                     <h3 className="font-semibold">Server-Side Security</h3>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -293,7 +301,7 @@ export default function Home() {
                 </div>
                 <div className="neu-surface rounded-xl p-6 space-y-3">
                   <div className="flex items-center gap-2 text-primary">
-                    <Dog className="h-5 w-5" />
+                    <Dog className="h-5 w-5" aria-hidden="true" />
                     <h3 className="font-semibold">Auto Cleanup</h3>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -305,7 +313,7 @@ export default function Home() {
           ) : (
             <>
               <Alert className="neu-surface-flat border-0">
-                <Shield className="h-4 w-4 text-accent" />
+                <Shield className="h-4 w-4 text-accent" aria-hidden="true" />
                 <AlertDescription className="text-muted-foreground">
                   <span className="text-foreground font-medium">Secure connection active.</span>{' '}
                   Your GitHub token is encrypted server-side. RepoRetriever performs real API actions
@@ -317,7 +325,7 @@ export default function Home() {
 
               <section>
                 <div className="flex items-center gap-2 mb-5">
-                  <Terminal className="h-5 w-5 text-primary" />
+                  <Terminal className="h-5 w-5 text-primary" aria-hidden="true" />
                   <h2 className="text-xl font-bold tracking-tight">Achievements to Fetch</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -361,15 +369,15 @@ export default function Home() {
                 <Tabs defaultValue="log" className="w-full">
                   <TabsList className="neu-inset border-0">
                     <TabsTrigger value="log" className="data-[state=active]:text-primary">
-                      <Terminal className="h-4 w-4 mr-2" />
+                      <Terminal className="h-4 w-4 mr-2" aria-hidden="true" />
                       Activity Log
                     </TabsTrigger>
                     <TabsTrigger value="history" className="data-[state=active]:text-primary">
-                      <Dog className="h-4 w-4 mr-2" />
+                      <Dog className="h-4 w-4 mr-2" aria-hidden="true" />
                       Fetch History
                     </TabsTrigger>
                     <TabsTrigger value="settings" className="data-[state=active]:text-primary">
-                      <Shield className="h-4 w-4 mr-2" />
+                      <Shield className="h-4 w-4 mr-2" aria-hidden="true" />
                       Settings
                     </TabsTrigger>
                   </TabsList>
@@ -401,7 +409,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <p className="flex items-center gap-2">
-              <Dog className="h-4 w-4 text-primary" />
+              <Dog className="h-4 w-4 text-primary" aria-hidden="true" />
               RepoRetriever — A loyal companion for GitHub achievements
             </p>
             <div className="flex items-center gap-4">

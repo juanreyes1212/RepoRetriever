@@ -2,18 +2,18 @@ import React from 'react';
 import { SettingsPanel } from '../../components/settings-panel';
 
 describe('SettingsPanel Component', () => {
+  const defaultProps = {
+    autoDeleteRepos: false,
+    onAutoDeleteChange: () => {},
+    onClearHistory: () => {},
+    onClearLogs: () => {},
+    onExportData: () => {},
+    historyCount: 5,
+    logCount: 10,
+  };
+
   it('renders settings panel with all sections', () => {
-    cy.mount(
-      <SettingsPanel
-        autoDeleteRepos={false}
-        onAutoDeleteChange={() => {}}
-        onClearHistory={() => {}}
-        onClearLogs={() => {}}
-        onExportData={() => {}}
-        historyCount={5}
-        logCount={10}
-      />
-    );
+    cy.mount(<SettingsPanel {...defaultProps} />);
 
     cy.contains('Settings').should('be.visible');
     cy.contains('Delete repositories after unlock').should('be.visible');
@@ -26,13 +26,8 @@ describe('SettingsPanel Component', () => {
 
     cy.mount(
       <SettingsPanel
-        autoDeleteRepos={false}
+        {...defaultProps}
         onAutoDeleteChange={onChangeSpy}
-        onClearHistory={() => {}}
-        onClearLogs={() => {}}
-        onExportData={() => {}}
-        historyCount={5}
-        logCount={10}
       />
     );
 
@@ -43,13 +38,8 @@ describe('SettingsPanel Component', () => {
   it('shows warning when auto-delete is enabled', () => {
     cy.mount(
       <SettingsPanel
+        {...defaultProps}
         autoDeleteRepos={true}
-        onAutoDeleteChange={() => {}}
-        onClearHistory={() => {}}
-        onClearLogs={() => {}}
-        onExportData={() => {}}
-        historyCount={5}
-        logCount={10}
       />
     );
 
@@ -59,11 +49,7 @@ describe('SettingsPanel Component', () => {
   it('displays correct record counts', () => {
     cy.mount(
       <SettingsPanel
-        autoDeleteRepos={false}
-        onAutoDeleteChange={() => {}}
-        onClearHistory={() => {}}
-        onClearLogs={() => {}}
-        onExportData={() => {}}
+        {...defaultProps}
         historyCount={15}
         logCount={42}
       />
@@ -76,11 +62,7 @@ describe('SettingsPanel Component', () => {
   it('disables clear buttons when no data', () => {
     cy.mount(
       <SettingsPanel
-        autoDeleteRepos={false}
-        onAutoDeleteChange={() => {}}
-        onClearHistory={() => {}}
-        onClearLogs={() => {}}
-        onExportData={() => {}}
+        {...defaultProps}
         historyCount={0}
         logCount={0}
       />
@@ -97,13 +79,8 @@ describe('SettingsPanel Component', () => {
 
     cy.mount(
       <SettingsPanel
-        autoDeleteRepos={false}
-        onAutoDeleteChange={() => {}}
+        {...defaultProps}
         onClearHistory={onClearSpy}
-        onClearLogs={() => {}}
-        onExportData={() => {}}
-        historyCount={5}
-        logCount={10}
       />
     );
 
@@ -111,5 +88,31 @@ describe('SettingsPanel Component', () => {
     cy.contains('Clear achievement history?').should('be.visible');
     cy.contains('button', 'Clear History').click();
     cy.get('@onClearSpy').should('have.been.calledOnce');
+  });
+
+  it('has accessible labels on clear buttons', () => {
+    cy.mount(<SettingsPanel {...defaultProps} />);
+
+    cy.get('button[aria-label="Clear achievement history"]').should('exist');
+    cy.get('button[aria-label="Clear activity logs"]').should('exist');
+  });
+
+  it('has accessible label on export button', () => {
+    cy.mount(<SettingsPanel {...defaultProps} />);
+
+    cy.get('button[aria-label="Export all data as JSON"]').should('exist');
+  });
+
+  it('hides decorative icons from screen readers', () => {
+    cy.mount(<SettingsPanel {...defaultProps} />);
+
+    cy.get('svg[aria-hidden="true"]').should('have.length.greaterThan', 0);
+  });
+
+  it('has proper label association for switch', () => {
+    cy.mount(<SettingsPanel {...defaultProps} />);
+
+    cy.get('#auto-delete').should('exist');
+    cy.get('label[for="auto-delete"]').should('exist');
   });
 });

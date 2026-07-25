@@ -49,7 +49,7 @@ export function AchievementHistory({ history }: AchievementHistoryProps) {
     <Card className="neu-surface border-0">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <History className="h-5 w-5 text-primary" />
+          <History className="h-5 w-5 text-primary" aria-hidden="true" />
           Fetch History
         </CardTitle>
         <CardDescription>
@@ -63,7 +63,7 @@ export function AchievementHistory({ history }: AchievementHistoryProps) {
           {history.length === 0 ? (
             <div className="flex items-center justify-center h-full text-muted-foreground">
               <div className="text-center space-y-2">
-                <div className="text-4xl opacity-40">{'>'}_</div>
+                <div className="text-4xl opacity-40" aria-hidden="true">{'>'}_</div>
                 <p>No fetches yet. Send RepoRetriever to work above!</p>
               </div>
             </div>
@@ -80,7 +80,7 @@ export function AchievementHistory({ history }: AchievementHistoryProps) {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start gap-3 flex-1">
-                      <div className="text-2xl mt-1">
+                      <div className="text-2xl mt-1" aria-hidden="true">
                         {achievementEmojis[record.achievementType]}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -93,19 +93,20 @@ export function AchievementHistory({ history }: AchievementHistoryProps) {
                             className="flex items-center gap-1 neu-pill border-0"
                           >
                             {record.status === 'success' ? (
-                              <CheckCircle2 className="h-3 w-3" />
+                              <CheckCircle2 className="h-3 w-3" aria-hidden="true" />
                             ) : (
-                              <XCircle className="h-3 w-3" />
+                              <XCircle className="h-3 w-3" aria-hidden="true" />
                             )}
                             {record.status}
+                            <span className="sr-only">Outcome: {record.status}</span>
                           </Badge>
                         </div>
 
                         <div className="space-y-1 text-sm text-muted-foreground">
                           <div className="flex items-center gap-2">
-                            <Clock className="h-3 w-3" />
+                            <Clock className="h-3 w-3" aria-hidden="true" />
                             <span>{formatDate(record.createdAt)}</span>
-                            <span>•</span>
+                            <span aria-hidden="true">•</span>
                             <span>{formatDuration(record.durationSeconds)}</span>
                           </div>
 
@@ -115,9 +116,10 @@ export function AchievementHistory({ history }: AchievementHistoryProps) {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-1 text-primary hover:underline"
+                              aria-label={`View repository for ${achievementNames[record.achievementType]} (opens in new tab)`}
                             >
                               View Repository
-                              <ExternalLink className="h-3 w-3" />
+                              <ExternalLink className="h-3 w-3" aria-hidden="true" />
                             </a>
                           )}
 
@@ -127,9 +129,10 @@ export function AchievementHistory({ history }: AchievementHistoryProps) {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-1 text-primary hover:underline ml-4"
+                              aria-label={`View issue for ${achievementNames[record.achievementType]} (opens in new tab)`}
                             >
                               View Issue
-                              <ExternalLink className="h-3 w-3" />
+                              <ExternalLink className="h-3 w-3" aria-hidden="true" />
                             </a>
                           )}
 
@@ -142,9 +145,10 @@ export function AchievementHistory({ history }: AchievementHistoryProps) {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center gap-1 text-primary hover:underline mr-4"
+                                  aria-label={`View pull request ${index + 1} (opens in new tab)`}
                                 >
                                   PR #{index + 1}
-                                  <ExternalLink className="h-3 w-3" />
+                                  <ExternalLink className="h-3 w-3" aria-hidden="true" />
                                 </a>
                               ))}
                             </div>

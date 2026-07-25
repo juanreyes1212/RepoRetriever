@@ -69,7 +69,7 @@ export function ActivityLog({ logs, onClear }: ActivityLogProps) {
         <div className="flex items-center justify-between">
           <div>
             <CardTitle className="flex items-center gap-2">
-              <span className="glow-primary text-primary">{'>'}</span>
+              <span className="glow-primary text-primary" aria-hidden="true">{'>'}</span>
               Fetch Log
             </CardTitle>
             <CardDescription>Watch RepoRetriever work in real-time</CardDescription>
@@ -86,7 +86,7 @@ export function ActivityLog({ logs, onClear }: ActivityLogProps) {
           {logs.length === 0 ? (
             <div className="flex items-center justify-center h-full text-muted-foreground">
               <div className="text-center space-y-2">
-                <div className="text-4xl opacity-40">{'>'}_</div>
+                <div className="text-4xl opacity-40" aria-hidden="true">{'>'}_</div>
                 <p>RepoRetriever is waiting for commands.</p>
                 <p className="text-xs">Train it first and start fetching!</p>
               </div>
@@ -105,12 +105,13 @@ export function ActivityLog({ logs, onClear }: ActivityLogProps) {
                     className={`p-3 rounded-lg ${config.bgColor} transition-all`}
                   >
                     <div className="flex items-start gap-3">
-                      <Icon className={`h-4 w-4 mt-0.5 flex-shrink-0 ${config.color}`} />
+                      <Icon className={`h-4 w-4 mt-0.5 flex-shrink-0 ${config.color}`} aria-hidden="true" />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
                           <Badge variant="outline" className="text-xs neu-pill border-0">
                             {formatTime(log.timestamp)}
                           </Badge>
+                          <span className="sr-only">Log level: {config.label}</span>
                         </div>
                         <p className="text-sm break-words font-mono">{messageWithoutUrl}</p>
                         {url && (
@@ -119,9 +120,10 @@ export function ActivityLog({ logs, onClear }: ActivityLogProps) {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-1"
+                            aria-label={`Open ${url} in new tab`}
                           >
                             {url.length > 50 ? url.substring(0, 50) + '...' : url}
-                            <ExternalLink className="h-3 w-3" />
+                            <ExternalLink className="h-3 w-3" aria-hidden="true" />
                           </a>
                         )}
                       </div>

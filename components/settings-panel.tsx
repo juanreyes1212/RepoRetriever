@@ -43,7 +43,7 @@ export function SettingsPanel({
     <Card className="neu-surface border-0">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Settings className="h-5 w-5 text-primary" />
+          <Settings className="h-5 w-5 text-primary" aria-hidden="true" />
           Settings
         </CardTitle>
         <CardDescription>Manage your preferences and data</CardDescription>
@@ -66,7 +66,7 @@ export function SettingsPanel({
 
           {autoDeleteRepos && (
             <Alert className="neu-inset border-0 glow-ring-destructive">
-              <AlertTriangle className="h-4 w-4 text-destructive" />
+              <AlertTriangle className="h-4 w-4 text-destructive" aria-hidden="true" />
               <AlertDescription className="text-muted-foreground">
                 Repositories will be permanently deleted from GitHub after each achievement. This action cannot be undone.
               </AlertDescription>
@@ -87,8 +87,8 @@ export function SettingsPanel({
               </div>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline" size="sm" disabled={historyCount === 0} className="neu-button">
-                    <Trash2 className="h-3 w-3 mr-2" />
+                  <Button variant="outline" size="sm" disabled={historyCount === 0} className="neu-button" aria-label="Clear achievement history">
+                    <Trash2 className="h-3 w-3 mr-2" aria-hidden="true" />
                     Clear
                   </Button>
                 </AlertDialogTrigger>
@@ -114,8 +114,8 @@ export function SettingsPanel({
               </div>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline" size="sm" disabled={logCount === 0} className="neu-button">
-                    <Trash2 className="h-3 w-3 mr-2" />
+                  <Button variant="outline" size="sm" disabled={logCount === 0} className="neu-button" aria-label="Clear activity logs">
+                    <Trash2 className="h-3 w-3 mr-2" aria-hidden="true" />
                     Clear
                   </Button>
                 </AlertDialogTrigger>
@@ -140,8 +140,9 @@ export function SettingsPanel({
               onClick={onExportData}
               disabled={historyCount === 0 && logCount === 0}
               className="w-full neu-button"
+              aria-label="Export all data as JSON"
             >
-              <Download className="h-3 w-3 mr-2" />
+              <Download className="h-3 w-3 mr-2" aria-hidden="true" />
               Export All Data
             </Button>
           </div>

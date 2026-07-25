@@ -218,4 +218,39 @@
       linear-gradient(90deg, hsl(var(--primary) / 0.04) 1px, transparent 1px);
     background-size: 32px 32px;
   }
+
+  /* Focus-visible ring for keyboard navigation */
+  .neu-button:focus-visible,
+  .neu-raised:focus-visible,
+  .neu-pill:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [role="tab"]:focus-visible,
+  [role="progressbar"]:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  @media (prefers-reduced-motion: reduce) {
+    .crt-flicker,
+    .animate-pulse-glow,
+    .animate-fade-in-up,
+    .animate-spin {
+      animation: none !important;
+    }
+
+    .neu-raised,
+    .neu-raised:hover,
+    .neu-button,
+    .neu-button:hover {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
 }

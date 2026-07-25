@@ -131,7 +131,7 @@ export const storageUtils = {
 
     const logs = this.getLogs();
     const newEntry: LogEntry = {
-      id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      id: `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
       timestamp: new Date().toISOString(),
       ...entry,
     };

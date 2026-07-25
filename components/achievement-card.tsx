@@ -70,15 +70,16 @@ export function AchievementCard({
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="text-4xl crt-flicker">{emoji}</div>
+            <div className="text-4xl crt-flicker" aria-hidden="true">{emoji}</div>
             <div>
               <CardTitle className="text-xl">{title}</CardTitle>
               <CardDescription className="mt-1">{description}</CardDescription>
             </div>
           </div>
           <Badge variant="outline" className={`neu-pill border-0 ${config.color}`}>
-            <StatusIcon className={`h-3 w-3 mr-1 ${status === 'in_progress' ? 'animate-spin' : ''}`} />
+            <StatusIcon className={`h-3 w-3 mr-1 ${status === 'in_progress' ? 'animate-spin' : ''}`} aria-hidden="true" />
             {config.label}
+            <span className="sr-only">Status: {config.label}</span>
           </Badge>
         </div>
       </CardHeader>
@@ -86,26 +87,33 @@ export function AchievementCard({
       <CardContent className="space-y-3">
         {status === 'in_progress' && (
           <div className="space-y-2">
-            <div className="relative h-3 w-full overflow-hidden rounded-full neu-inset">
+            <div
+              className="relative h-3 w-full overflow-hidden rounded-full neu-inset"
+              role="progressbar"
+              aria-valuenow={progress}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label={`${title} fetch progress`}
+            >
               <div
                 className="h-full bg-primary transition-all rounded-full progress-glow"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <p className="text-sm text-muted-foreground">Fetching: {progress}%</p>
+            <p className="text-sm text-muted-foreground" aria-live="polite">Fetching: {progress}%</p>
           </div>
         )}
 
         <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
           {estimatedTime && (
             <div className="flex items-center gap-1 neu-pill px-2 py-1 rounded-full">
-              <Clock className="h-3 w-3" />
+              <Clock className="h-3 w-3" aria-hidden="true" />
               <span>{estimatedTime}</span>
             </div>
           )}
           {requirements && (
             <div className="flex items-center gap-1 neu-pill px-2 py-1 rounded-full">
-              <Award className="h-3 w-3" />
+              <Award className="h-3 w-3" aria-hidden="true" />
               <span>{requirements}</span>
             </div>
           )}
@@ -118,10 +126,11 @@ export function AchievementCard({
           disabled={disabled || status === 'in_progress'}
           className="w-full neu-button"
           variant={status === 'error' ? 'outline' : 'default'}
+          aria-label={`Fetch ${title} achievement`}
         >
           {status === 'in_progress' ? (
             <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
               Fetching...
             </>
           ) : status === 'error' ? (

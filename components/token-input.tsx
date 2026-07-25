@@ -32,13 +32,13 @@ export function TokenInput() {
       <Card className="neu-surface border-0">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Github className="h-5 w-5 text-primary" />
+            <Github className="h-5 w-5 text-primary" aria-hidden="true" />
             Checking Authentication
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-center py-8">
-            <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+          <div className="flex items-center justify-center py-8" role="status" aria-label="Loading authentication status">
+            <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin" aria-hidden="true" />
           </div>
         </CardContent>
       </Card>
@@ -51,7 +51,7 @@ export function TokenInput() {
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <span className="flex items-center gap-2">
-              <Dog className="h-5 w-5 text-primary glow-primary" />
+              <Dog className="h-5 w-5 text-primary glow-primary" aria-hidden="true" />
               RepoRetriever Ready
             </span>
             <Button
@@ -59,8 +59,9 @@ export function TokenInput() {
               size="sm"
               onClick={handleSignOut}
               className="text-destructive hover:text-destructive"
+              aria-label="Sign out of GitHub"
             >
-              <LogOut className="h-4 w-4 mr-2" />
+              <LogOut className="h-4 w-4 mr-2" aria-hidden="true" />
               Sign Out
             </Button>
           </CardTitle>
@@ -85,7 +86,7 @@ export function TokenInput() {
           </div>
 
           <Alert className="mt-4 neu-inset border-0">
-            <Shield className="h-4 w-4 text-accent" />
+            <Shield className="h-4 w-4 text-accent" aria-hidden="true" />
             <AlertDescription className="text-muted-foreground">
               <span className="text-accent font-medium">Secure Connection:</span>{' '}
               Your GitHub token is encrypted and stored server-side with HttpOnly cookies.
@@ -101,7 +102,7 @@ export function TokenInput() {
     <Card className="neu-surface border-0">
       <CardHeader className="text-center pb-4">
         <CardTitle className="text-3xl font-bold flex items-center justify-center gap-3">
-          <Github className="h-8 w-8 text-primary glow-primary" />
+          <Github className="h-8 w-8 text-primary glow-primary" aria-hidden="true" />
           Automate Your GitHub Profile
         </CardTitle>
         <CardDescription className="text-base mt-2">
@@ -112,17 +113,17 @@ export function TokenInput() {
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center p-4 rounded-xl neu-inset">
-              <div className="text-4xl mb-2">🦈</div>
+              <div className="text-4xl mb-2" aria-hidden="true">🦈</div>
               <h3 className="font-semibold mb-1 text-primary">Pull Shark</h3>
               <p className="text-xs text-muted-foreground">Auto-merge PRs</p>
             </div>
             <div className="text-center p-4 rounded-xl neu-inset">
-              <div className="text-4xl mb-2">⚡</div>
+              <div className="text-4xl mb-2" aria-hidden="true">⚡</div>
               <h3 className="font-semibold mb-1 text-primary">Quickdraw</h3>
               <p className="text-xs text-muted-foreground">Fast issue closing</p>
             </div>
             <div className="text-center p-4 rounded-xl neu-inset">
-              <div className="text-4xl mb-2">🎯</div>
+              <div className="text-4xl mb-2" aria-hidden="true">🎯</div>
               <h3 className="font-semibold mb-1 text-primary">YOLO</h3>
               <p className="text-xs text-muted-foreground">Direct commits</p>
             </div>
@@ -130,21 +131,21 @@ export function TokenInput() {
 
           <div className="space-y-3">
             <div className="flex items-start gap-3 p-3 rounded-xl neu-inset">
-              <div className="text-2xl flex-shrink-0">🌟</div>
+              <div className="text-2xl flex-shrink-0" aria-hidden="true">🌟</div>
               <div>
                 <h4 className="font-semibold text-sm mb-1">Add to Awesome Lists</h4>
                 <p className="text-xs text-muted-foreground">Auto-contribute to curated lists and showcase repos</p>
               </div>
             </div>
             <div className="flex items-start gap-3 p-3 rounded-xl neu-inset">
-              <div className="text-2xl flex-shrink-0">🚀</div>
+              <div className="text-2xl flex-shrink-0" aria-hidden="true">🚀</div>
               <div>
                 <h4 className="font-semibold text-sm mb-1">Instant Contributions</h4>
                 <p className="text-xs text-muted-foreground">Build your contribution graph automatically</p>
               </div>
             </div>
             <div className="flex items-start gap-3 p-3 rounded-xl neu-inset">
-              <div className="text-2xl flex-shrink-0">🧹</div>
+              <div className="text-2xl flex-shrink-0" aria-hidden="true">🧹</div>
               <div>
                 <h4 className="font-semibold text-sm mb-1">Smart Cleanup</h4>
                 <p className="text-xs text-muted-foreground">Test repos auto-delete after achievements unlock</p>
@@ -157,22 +158,23 @@ export function TokenInput() {
             className="w-full text-lg py-6 neu-button glow-ring-primary"
             disabled={isSigningIn}
             size="lg"
+            aria-label="Sign in with GitHub"
           >
-            <Github className="mr-2 h-6 w-6" />
+            <Github className="mr-2 h-6 w-6" aria-hidden="true" />
             {isSigningIn ? 'Connecting...' : 'Get Started Free'}
           </Button>
 
           <div className="flex items-center justify-center gap-6 text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
-              <Shield className="h-3 w-3 text-accent" />
+              <Shield className="h-3 w-3 text-accent" aria-hidden="true" />
               <span>OAuth Secure</span>
             </div>
             <div className="flex items-center gap-1">
-              <Zap className="h-3 w-3 text-primary" />
+              <Zap className="h-3 w-3 text-primary" aria-hidden="true" />
               <span>Setup in 30s</span>
             </div>
             <div className="flex items-center gap-1">
-              <Dog className="h-3 w-3 text-primary" />
+              <Dog className="h-3 w-3 text-primary" aria-hidden="true" />
               <span>Private by default</span>
             </div>
           </div>
