@@ -21,34 +21,4 @@ RepoRetriever is a GitHub achievement automation tool. It performs the real sequ
 3. **Fetch** — RepoRetriever calls the GitHub API to perform the exact operations that trigger the achievement. Progress is shown in real-time.
 4. **Optional cleanup** — Enable auto-delete and RepoRetriever removes the test repository after the achievement actions complete, keeping your GitHub profile tidy.
 
-## About Achievement Validation
-
-GitHub does not expose a user's earned achievements through its API. There is no endpoint that returns "this user has the Pull Shark badge." RepoRetriever therefore cannot confirm whether an achievement actually unlocked — it only confirms that the actions which should trigger it were performed successfully. The success state in the UI means the API operations completed, not that GitHub confirmed the badge.
-
-## Privacy & Security
-
-- **OAuth authentication** — No manual token copying. Sign in with GitHub, sign out anytime.
-- **Server-side token storage** — Tokens live in encrypted HttpOnly cookies, never in the browser.
-- **Local-only data** — Your activity log and fetch history are stored in your browser's local storage. Nothing is sent to a database or third-party service.
-- **Data export** — Export your full history and logs as JSON at any time.
-- **Data clearing** — Clear your history or logs individually, or export everything before clearing.
-
-## Responsible Use
-
-RepoRetriever is a learning tool for understanding GitHub's API and achievement system. Use it responsibly:
-- Enable auto-cleanup to avoid cluttering your GitHub profile with test repositories
-- Respect GitHub's rate limits — the app monitors them automatically
-- Follow GitHub's Terms of Service
-- Achievements should ultimately reflect genuine contributions to the developer community
-
-## Tech Stack
-
-- **Frontend**: React, Next.js, Tailwind CSS, shadcn/ui
-- **Authentication**: NextAuth.js with GitHub OAuth
-- **GitHub API**: Server-side API routes calling GitHub's REST API
-- **Data storage**: Browser local storage (no database)
-- **Design**: Dark neumorphism with subtle CRT/sci-fi accents
-
----
-
 **Built for learning, testing, and responsible GitHub automation.**
