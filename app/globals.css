@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    --background: 220 20% 8%;
-    --foreground: 190 30% 88%;
-    --card: 220 18% 11%;
-    --card-foreground: 190 25% 88%;
-    --popover: 220 20% 10%;
-    --popover-foreground: 190 25% 88%;
-    --primary: 190 90% 55%;
-    --primary-foreground: 220 25% 8%;
-    --secondary: 220 15% 18%;
-    --secondary-foreground: 190 25% 88%;
-    --muted: 220 15% 15%;
-    --muted-foreground: 200 12% 55%;
-    --accent: 160 70% 45%;
-    --accent-foreground: 220 25% 8%;
+    --background: 30 12% 9%;
+    --foreground: 40 30% 88%;
+    --card: 32 10% 12%;
+    --card-foreground: 40 25% 88%;
+    --popover: 30 12% 10%;
+    --popover-foreground: 40 25% 88%;
+    --primary: 38 92% 55%;
+    --primary-foreground: 30 20% 8%;
+    --secondary: 32 8% 18%;
+    --secondary-foreground: 40 25% 88%;
+    --muted: 32 8% 15%;
+    --muted-foreground: 35 8% 55%;
+    --accent: 172 60% 42%;
+    --accent-foreground: 30 20% 8%;
     --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 98%;
-    --border: 220 15% 18%;
-    --input: 220 15% 16%;
-    --ring: 190 90% 55%;
-    --success: 160 70% 45%;
-    --success-foreground: 220 25% 8%;
-    --warning: 38 90% 55%;
-    --warning-foreground: 220 25% 8%;
-    --chart-1: 190 90% 55%;
-    --chart-2: 160 70% 45%;
-    --chart-3: 38 90% 55%;
-    --chart-4: 280 60% 60%;
+    --border: 32 8% 18%;
+    --input: 32 8% 16%;
+    --ring: 38 92% 55%;
+    --success: 172 60% 42%;
+    --success-foreground: 30 20% 8%;
+    --warning: 38 92% 55%;
+    --warning-foreground: 30 20% 8%;
+    --chart-1: 38 92% 55%;
+    --chart-2: 172 60% 42%;
+    --chart-3: 25 80% 55%;
+    --chart-4: 200 60% 50%;
     --chart-5: 0 75% 55%;
     --radius: 0.625rem;
   }
@@ -51,97 +51,97 @@
   .neu-surface {
     background: hsl(var(--card));
     box-shadow:
-      6px 6px 14px hsl(220 25% 4% / 0.8),
-      -6px -6px 14px hsl(220 15% 14% / 0.5),
-      inset 1px 1px 1px hsl(220 15% 16% / 0.6);
-    border: 1px solid hsl(220 15% 16% / 0.8);
+      6px 6px 14px hsl(30 20% 4% / 0.8),
+      -6px -6px 14px hsl(35 12% 15% / 0.5),
+      inset 1px 1px 1px hsl(35 12% 17% / 0.6);
+    border: 1px solid hsl(32 8% 18% / 0.8);
   }
 
   .neu-surface-flat {
     background: hsl(var(--card));
     box-shadow:
-      inset 3px 3px 8px hsl(220 25% 4% / 0.7),
-      inset -3px -3px 8px hsl(220 15% 14% / 0.4);
-    border: 1px solid hsl(220 15% 16% / 0.6);
+      inset 3px 3px 8px hsl(30 20% 4% / 0.7),
+      inset -3px -3px 8px hsl(35 12% 15% / 0.4);
+    border: 1px solid hsl(32 8% 18% / 0.6);
   }
 
   .neu-raised {
     background: linear-gradient(
       145deg,
-      hsl(220 18% 13%),
-      hsl(220 18% 9%)
+      hsl(32 10% 14%),
+      hsl(30 12% 10%)
     );
     box-shadow:
-      8px 8px 18px hsl(220 25% 3% / 0.9),
-      -8px -8px 18px hsl(220 15% 15% / 0.4),
-      inset 1px 1px 1px hsl(220 18% 16% / 0.5);
-    border: 1px solid hsl(220 15% 16% / 0.7);
+      8px 8px 18px hsl(30 20% 3% / 0.9),
+      -8px -8px 18px hsl(35 12% 16% / 0.4),
+      inset 1px 1px 1px hsl(35 12% 17% / 0.5);
+    border: 1px solid hsl(32 8% 18% / 0.7);
     transition: box-shadow 0.25s ease, transform 0.25s ease;
   }
 
   .neu-raised:hover {
     box-shadow:
-      10px 10px 22px hsl(220 25% 3% / 0.95),
-      -10px -10px 22px hsl(220 15% 16% / 0.45),
-      inset 1px 1px 1px hsl(220 18% 17% / 0.6);
+      10px 10px 22px hsl(30 20% 3% / 0.95),
+      -10px -10px 22px hsl(35 12% 17% / 0.45),
+      inset 1px 1px 1px hsl(35 12% 18% / 0.6);
     transform: translateY(-1px);
   }
 
   .neu-raised:active {
     box-shadow:
-      inset 4px 4px 10px hsl(220 25% 3% / 0.8),
-      inset -4px -4px 10px hsl(220 15% 14% / 0.3);
+      inset 4px 4px 10px hsl(30 20% 3% / 0.8),
+      inset -4px -4px 10px hsl(35 12% 15% / 0.3);
     transform: translateY(0);
   }
 
   .neu-button {
     background: linear-gradient(
       145deg,
-      hsl(220 18% 13%),
-      hsl(220 18% 9%)
+      hsl(32 10% 14%),
+      hsl(30 12% 10%)
     );
     box-shadow:
-      5px 5px 12px hsl(220 25% 3% / 0.9),
-      -5px -5px 12px hsl(220 15% 15% / 0.4),
-      inset 1px 1px 1px hsl(220 18% 16% / 0.5);
-    border: 1px solid hsl(220 15% 16% / 0.7);
+      5px 5px 12px hsl(30 20% 3% / 0.9),
+      -5px -5px 12px hsl(35 12% 16% / 0.4),
+      inset 1px 1px 1px hsl(35 12% 17% / 0.5);
+    border: 1px solid hsl(32 8% 18% / 0.7);
     transition: all 0.2s ease;
   }
 
   .neu-button:hover {
     box-shadow:
-      7px 7px 16px hsl(220 25% 3% / 0.95),
-      -7px -7px 16px hsl(220 15% 16% / 0.45),
-      inset 1px 1px 2px hsl(220 18% 17% / 0.6);
+      7px 7px 16px hsl(30 20% 3% / 0.95),
+      -7px -7px 16px hsl(35 12% 17% / 0.45),
+      inset 1px 1px 2px hsl(35 12% 18% / 0.6);
     transform: translateY(-1px);
   }
 
   .neu-button:active {
     box-shadow:
-      inset 3px 3px 8px hsl(220 25% 3% / 0.8),
-      inset -3px -3px 8px hsl(220 15% 14% / 0.3);
+      inset 3px 3px 8px hsl(30 20% 3% / 0.8),
+      inset -3px -3px 8px hsl(35 12% 15% / 0.3);
     transform: translateY(0);
   }
 
   .neu-inset {
-    background: hsl(220 20% 7%);
+    background: hsl(30 15% 7%);
     box-shadow:
-      inset 4px 4px 10px hsl(220 25% 3% / 0.85),
-      inset -4px -4px 10px hsl(220 15% 13% / 0.35);
-    border: 1px solid hsl(220 15% 14% / 0.5);
+      inset 4px 4px 10px hsl(30 20% 3% / 0.85),
+      inset -4px -4px 10px hsl(35 12% 14% / 0.35);
+    border: 1px solid hsl(32 8% 16% / 0.5);
   }
 
   .neu-pill {
     background: linear-gradient(
       145deg,
-      hsl(220 18% 12%),
-      hsl(220 18% 10%)
+      hsl(32 10% 13%),
+      hsl(30 12% 11%)
     );
     box-shadow:
-      3px 3px 8px hsl(220 25% 3% / 0.8),
-      -3px -3px 8px hsl(220 15% 15% / 0.35),
-      inset 1px 1px 1px hsl(220 18% 15% / 0.4);
-    border: 1px solid hsl(220 15% 15% / 0.6);
+      3px 3px 8px hsl(30 20% 3% / 0.8),
+      -3px -3px 8px hsl(35 12% 16% / 0.35),
+      inset 1px 1px 1px hsl(35 12% 16% / 0.4);
+    border: 1px solid hsl(32 8% 17% / 0.6);
   }
 
   /* CRT / sci-fi glow accents */

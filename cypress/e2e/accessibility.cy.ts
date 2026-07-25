@@ -19,9 +19,9 @@ describe('Page Accessibility', () => {
 
   it('hides decorative emojis from screen readers on landing page', () => {
     cy.visit('/');
-    cy.get('[aria-hidden="true"]').contains('🦈').should('exist');
-    cy.get('[aria-hidden="true"]').contains('⚡').should('exist');
-    cy.get('[aria-hidden="true"]').contains('🎯').should('exist');
+    cy.get('[aria-hidden="true"]').contains('🦴').should('exist');
+    cy.get('[aria-hidden="true"]').contains('🥏').should('exist');
+    cy.get('[aria-hidden="true"]').contains('🎾').should('exist');
   });
 
   it('has accessible sign in button', () => {

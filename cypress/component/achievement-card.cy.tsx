@@ -7,7 +7,7 @@ describe('AchievementCard Component', () => {
       <AchievementCard
         title="Pull Shark"
         description="Merge pull requests"
-        emoji="🦈"
+        emoji="🦴"
         status="idle"
         progress={0}
         onUnlock={() => {}}
@@ -18,7 +18,7 @@ describe('AchievementCard Component', () => {
 
     cy.contains('Pull Shark').should('be.visible');
     cy.contains('Merge pull requests').should('be.visible');
-    cy.contains('🦈').should('be.visible');
+    cy.contains('🦴').should('be.visible');
     cy.contains('~20-30s').should('be.visible');
     cy.contains('2 PRs').should('be.visible');
   });
@@ -28,7 +28,7 @@ describe('AchievementCard Component', () => {
       <AchievementCard
         title="Pull Shark"
         description="Merge pull requests"
-        emoji="🦈"
+        emoji="🦴"
         status="idle"
         progress={0}
         onUnlock={() => {}}
@@ -44,7 +44,7 @@ describe('AchievementCard Component', () => {
       <AchievementCard
         title="Pull Shark"
         description="Merge pull requests"
-        emoji="🦈"
+        emoji="🦴"
         status="in_progress"
         progress={50}
         onUnlock={() => {}}
@@ -65,7 +65,7 @@ describe('AchievementCard Component', () => {
       <AchievementCard
         title="Quickdraw"
         description="Close issues fast"
-        emoji="⚡"
+        emoji="🥏"
         status="success"
         progress={100}
         onUnlock={() => {}}
@@ -80,7 +80,7 @@ describe('AchievementCard Component', () => {
       <AchievementCard
         title="YOLO"
         description="Direct commits"
-        emoji="🎯"
+        emoji="🎾"
         status="error"
         progress={0}
         onUnlock={() => {}}
@@ -98,7 +98,7 @@ describe('AchievementCard Component', () => {
       <AchievementCard
         title="Pull Shark"
         description="Merge pull requests"
-        emoji="🦈"
+        emoji="🦴"
         status="idle"
         progress={0}
         onUnlock={onUnlockSpy}
@@ -114,7 +114,7 @@ describe('AchievementCard Component', () => {
       <AchievementCard
         title="Pull Shark"
         description="Merge pull requests"
-        emoji="🦈"
+        emoji="🦴"
         status="in_progress"
         progress={50}
         onUnlock={() => {}}
@@ -130,7 +130,7 @@ describe('AchievementCard Component', () => {
       <AchievementCard
         title="Pull Shark"
         description="Merge pull requests"
-        emoji="🦈"
+        emoji="🦴"
         status="idle"
         progress={0}
         onUnlock={() => {}}
@@ -146,14 +146,14 @@ describe('AchievementCard Component', () => {
       <AchievementCard
         title="Pull Shark"
         description="Merge pull requests"
-        emoji="🦈"
+        emoji="🦴"
         status="idle"
         progress={0}
         onUnlock={() => {}}
       />
     );
 
-    cy.get('[aria-hidden="true"]').contains('🦈').should('exist');
+    cy.get('[aria-hidden="true"]').contains('🦴').should('exist');
   });
 
   it('has accessible button label', () => {
@@ -161,7 +161,7 @@ describe('AchievementCard Component', () => {
       <AchievementCard
         title="Pull Shark"
         description="Merge pull requests"
-        emoji="🦈"
+        emoji="🦴"
         status="idle"
         progress={0}
         onUnlock={() => {}}
@@ -176,7 +176,7 @@ describe('AchievementCard Component', () => {
       <AchievementCard
         title="Pull Shark"
         description="Merge pull requests"
-        emoji="🦈"
+        emoji="🦴"
         status="in_progress"
         progress={50}
         onUnlock={() => {}}

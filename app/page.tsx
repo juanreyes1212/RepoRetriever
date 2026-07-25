@@ -332,7 +332,7 @@ export default function Home() {
                   <AchievementCard
                     title="Pull Shark"
                     description="Create and merge 2 pull requests"
-                    emoji="🦈"
+                    emoji="🦴"
                     status={achievements.pull_shark.status}
                     progress={achievements.pull_shark.progress}
                     onUnlock={() => handleUnlockAchievement('pull_shark')}
@@ -343,7 +343,7 @@ export default function Home() {
                   <AchievementCard
                     title="Quickdraw"
                     description="Create and close an issue rapidly"
-                    emoji="⚡"
+                    emoji="🥏"
                     status={achievements.quickdraw.status}
                     progress={achievements.quickdraw.progress}
                     onUnlock={() => handleUnlockAchievement('quickdraw')}
@@ -354,7 +354,7 @@ export default function Home() {
                   <AchievementCard
                     title="YOLO"
                     description="Push direct commits to main branch"
-                    emoji="🎯"
+                    emoji="🎾"
                     status={achievements.yolo.status}
                     progress={achievements.yolo.progress}
                     onUnlock={() => handleUnlockAchievement('yolo')}

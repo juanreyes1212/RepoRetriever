@@ -85,9 +85,9 @@ describe('AchievementHistory Component', () => {
   it('hides achievement emojis from screen readers', () => {
     cy.mount(<AchievementHistory history={mockHistory} />);
 
-    cy.get('[aria-hidden="true"]').contains('🦈').should('exist');
-    cy.get('[aria-hidden="true"]').contains('⚡').should('exist');
-    cy.get('[aria-hidden="true"]').contains('🎯').should('exist');
+    cy.get('[aria-hidden="true"]').contains('🦴').should('exist');
+    cy.get('[aria-hidden="true"]').contains('🥏').should('exist');
+    cy.get('[aria-hidden="true"]').contains('🎾').should('exist');
   });
 
   it('shows summary counts in description', () => {

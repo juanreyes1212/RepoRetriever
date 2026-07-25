@@ -113,17 +113,17 @@ export function TokenInput() {
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center p-4 rounded-xl neu-inset">
-              <div className="text-4xl mb-2" aria-hidden="true">🦈</div>
+              <div className="text-4xl mb-2" aria-hidden="true">🦴</div>
               <h3 className="font-semibold mb-1 text-primary">Pull Shark</h3>
-              <p className="text-xs text-muted-foreground">Auto-merge PRs</p>
+              <p className="text-xs text-muted-foreground">Fetch & merge PRs</p>
             </div>
             <div className="text-center p-4 rounded-xl neu-inset">
-              <div className="text-4xl mb-2" aria-hidden="true">⚡</div>
+              <div className="text-4xl mb-2" aria-hidden="true">🥏</div>
               <h3 className="font-semibold mb-1 text-primary">Quickdraw</h3>
-              <p className="text-xs text-muted-foreground">Fast issue closing</p>
+              <p className="text-xs text-muted-foreground">Quick issue fetch</p>
             </div>
             <div className="text-center p-4 rounded-xl neu-inset">
-              <div className="text-4xl mb-2" aria-hidden="true">🎯</div>
+              <div className="text-4xl mb-2" aria-hidden="true">🎾</div>
               <h3 className="font-semibold mb-1 text-primary">YOLO</h3>
               <p className="text-xs text-muted-foreground">Direct commits</p>
             </div>
@@ -131,21 +131,21 @@ export function TokenInput() {
 
           <div className="space-y-3">
             <div className="flex items-start gap-3 p-3 rounded-xl neu-inset">
-              <div className="text-2xl flex-shrink-0" aria-hidden="true">🌟</div>
+              <div className="text-2xl flex-shrink-0" aria-hidden="true">🐕</div>
               <div>
                 <h4 className="font-semibold text-sm mb-1">Add to Awesome Lists</h4>
                 <p className="text-xs text-muted-foreground">Auto-contribute to curated lists and showcase repos</p>
               </div>
             </div>
             <div className="flex items-start gap-3 p-3 rounded-xl neu-inset">
-              <div className="text-2xl flex-shrink-0" aria-hidden="true">🚀</div>
+              <div className="text-2xl flex-shrink-0" aria-hidden="true">🐾</div>
               <div>
                 <h4 className="font-semibold text-sm mb-1">Instant Contributions</h4>
                 <p className="text-xs text-muted-foreground">Build your contribution graph automatically</p>
               </div>
             </div>
             <div className="flex items-start gap-3 p-3 rounded-xl neu-inset">
-              <div className="text-2xl flex-shrink-0" aria-hidden="true">🧹</div>
+              <div className="text-2xl flex-shrink-0" aria-hidden="true">🦮</div>
               <div>
                 <h4 className="font-semibold text-sm mb-1">Smart Cleanup</h4>
                 <p className="text-xs text-muted-foreground">Test repos auto-delete after achievements unlock</p>

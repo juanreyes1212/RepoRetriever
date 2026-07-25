@@ -12,9 +12,9 @@ interface AchievementHistoryProps {
 }
 
 const achievementEmojis = {
-  pull_shark: '🦈',
-  quickdraw: '⚡',
-  yolo: '🎯',
+  pull_shark: '🦴',
+  quickdraw: '🥏',
+  yolo: '🎾',
 };
 
 const achievementNames = {
